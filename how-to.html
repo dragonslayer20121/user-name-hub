@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080609">
+  <meta name="description" content="Learn how to use the Shadow Monarch Identity Hub and play Shadow Hunt.">
+  <title>How to Use — Shadow Monarch Hub</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080609;--panel:#120d12;--red:#ef1738;--muted:#b9aab3;--line:#38202a}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#4b0718 0,transparent 45%),var(--bg);color:#f8f3f5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+    a{color:inherit}
+    nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px clamp(18px,5vw,64px);border-bottom:1px solid #ffffff12;background:#080609d9;backdrop-filter:blur(16px)}
+    .brand{font-size:.9rem;font-weight:950;letter-spacing:.13em;text-decoration:none}.brand span{color:var(--red)}
+    .back{padding:10px 13px;border:1px solid var(--line);border-radius:8px;background:#170b11;color:#f8f3f5;text-decoration:none;font-size:.75rem;font-weight:850;letter-spacing:.06em;transition:transform .2s,border-color .2s,color .2s}.back:hover{transform:translateY(-2px);border-color:var(--red);color:#ff7184}
+    main{width:min(900px,calc(100% - 32px));margin:0 auto;padding:clamp(38px,8vw,90px) 0 70px}
+    .eyebrow{color:#ff7184;font-size:.72rem;font-weight:900;letter-spacing:.28em}
+    h1{margin:14px 0;font-size:clamp(2.6rem,8vw,5.8rem);line-height:.95;letter-spacing:-.06em;text-transform:uppercase;text-shadow:0 0 35px #ef173833}
+    .intro{max-width:650px;color:#c8bac2;line-height:1.8}
+    .rule{height:1px;margin:30px 0;background:linear-gradient(90deg,transparent,var(--red),transparent)}
+    .guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:15px;margin-top:28px}
+    .guide-card{padding:22px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#1a0c13eF,#0e0a0ef5);box-shadow:0 14px 35px #0002;animation:rise .55s both}
+    .guide-card:nth-child(2){animation-delay:.06s}.guide-card:nth-child(3){animation-delay:.12s}.guide-card:nth-child(4){animation-delay:.18s}.guide-card:nth-child(5){animation-delay:.24s}.guide-card:nth-child(6){animation-delay:.3s}
+    .number{color:var(--red);font-size:.72rem;font-weight:950;letter-spacing:.16em}
+    h2{margin:10px 0;font-size:1.15rem}p,li{color:#c8bac2;line-height:1.75;font-size:.94rem}
+    ul{padding-left:20px}.tip{margin-top:24px;padding:18px 20px;border-left:3px solid var(--red);background:#ef17380c;color:#e7dce2;line-height:1.7}
+    footer{padding:22px;text-align:center;color:#8f818a;font-size:.75rem;border-top:1px solid #ffffff12}
+    @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <a class="brand" href="index.html">DRAGON<span>SLAYER</span> // HUB</a>
+    <a class="back" href="index.html">← BACK TO HUB</a>
+  </nav>
+  <main>
+    <div class="eyebrow">QUICK START // USER GUIDE</div>
+    <h1>How to use<br>the hub</h1>
+    <p class="intro">Welcome to your portal. Here's how to explore the themes, open the anime character screen, visit profiles, and play Shadow Hunt.</p>
+    <div class="rule"></div>
+    <section class="guide-grid" aria-label="Instructions">
+      <article class="guide-card"><div class="number">01 // THEMES</div><h2>Switch your anime world</h2><p>Use the theme dropdown in the top navigation to switch between Shadow Monarch, Naruto, Black Clover, and Bleach. The colours and effects adapt to your choice.</p></article>
+      <article class="guide-card"><div class="number">02 // CHARACTER PORTAL</div><h2>Click the logo</h2><p>Click the DRAGONSLAYER // HUB logo to open the full-screen character portal for your selected theme. Use the close button or press Escape to return.</p></article>
+      <article class="guide-card"><div class="number">03 // SOUND & EFFECTS</div><h2>Customize the atmosphere</h2><p>Use MUSIC to toggle the ambient soundtrack, SFX to enable or disable interface sounds, and SHADOWS to turn the ember particles on or off. Music may need a click to start because of browser audio rules.</p></article>
+      <article class="guide-card"><div class="number">04 // PROFILES</div><h2>Explore your links</h2><p>Choose EXPLORE PROFILES to jump to your profile cards. Use Visit portal to open a linked profile, or Copy username to copy its displayed username. Some profiles may not have a link configured yet.</p></article>
+      <article class="guide-card"><div class="number">05 // SHADOW HUNT</div><h2>Play the mini-game</h2><p>Enter a name, start the round, then click the glowing shadow orb as quickly as you can. You have 30 seconds. Your score is saved to this browser's local leaderboard.</p></article>
+      <article class="guide-card"><div class="number">06 // SECRET AWAKENING</div><h2>Find the hidden effect</h2><p>On the main hub, click the large symbol above the title to trigger a short theme-specific transformation effect. You can also focus it and press Enter or Space.</p></article>
+    </section>
+    <div class="tip"><strong>Quick tip:</strong> If the latest update doesn't appear, refresh the hub with <strong>Ctrl + F5</strong>. The Shadow Hunt leaderboard is currently local to each browser, so it isn't a shared global leaderboard.</div>
+  </main>
+  <footer>SHADOW MONARCH HUB · BUILT FOR THE SHADOWS</footer>
+</body>
+</html>
