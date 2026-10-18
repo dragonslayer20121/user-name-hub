@@ -81,7 +81,7 @@
   <canvas id="embers" aria-hidden="true"></canvas><div class="scanlines" aria-hidden="true"></div>
   <div class="cursor-aura" id="cursorAura" aria-hidden="true"></div><div class="cursor-glow-dot" id="cursorGlow" aria-hidden="true"></div>
   <div class="wrap">
-    <nav><div class="brand">DRAGON<span>SLAYER</span> // HUB</div><div class="controls"><button class="control-button" id="particleToggle" type="button" aria-pressed="true">SHADOWS: ON</button><a class="navlink" href="#profiles">EXPLORE PROFILES ↓</a></div></nav>
+    <nav><div class="brand">DRAGON<span>SLAYER</span> // HUB</div><div class="controls"><button class="control-button" id="musicToggle" type="button" aria-pressed="false">MUSIC: OFF</button><button class="control-button" id="particleToggle" type="button" aria-pressed="true">SHADOWS: ON</button><a class="navlink" href="#profiles">EXPLORE PROFILES ↓</a></div></nav>
     <header>
       <div class="sigil" aria-hidden="true">♜</div>
       <div class="eyebrow">THE SHADOWS ARE WAITING</div>
@@ -109,6 +109,76 @@
       };
       enter.addEventListener("click", closeIntro);
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) intro.classList.add("hidden");
+
+      // Original synthesized dark-ambient soundtrack. Starts only after the visitor taps Music.
+      const musicToggle = document.querySelector("#musicToggle");
+      let audioContext = null;
+      let musicMaster = null;
+      let musicTimer = null;
+      let musicStep = 0;
+      let musicNodes = [];
+      const stopMusic = () => {
+        if (musicTimer) { window.clearInterval(musicTimer); musicTimer = null; }
+        musicNodes.forEach(node => { try { node.stop(); } catch {} });
+        musicNodes = [];
+        if (musicMaster && audioContext) {
+          musicMaster.gain.setTargetAtTime(0, audioContext.currentTime, 0.15);
+        }
+        musicToggle.setAttribute("aria-pressed", "false");
+        musicToggle.textContent = "MUSIC: OFF";
+      };
+      const playMusicNote = (frequency, start, duration, volume, type = "sine") => {
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(frequency, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(volume, start + 0.7);
+        gain.gain.setTargetAtTime(0.0001, start + duration - 0.4, 0.25);
+        oscillator.connect(gain);
+        gain.connect(musicMaster);
+        oscillator.start(start);
+        oscillator.stop(start + duration + 0.3);
+        musicNodes.push(oscillator);
+        oscillator.onended = () => { musicNodes = musicNodes.filter(node => node !== oscillator); };
+      };
+      const startMusic = async () => {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) {
+          musicToggle.textContent = "MUSIC UNAVAILABLE";
+          return;
+        }
+        if (!audioContext) {
+          audioContext = new AudioContextClass();
+          musicMaster = audioContext.createGain();
+          musicMaster.gain.value = 0.0001;
+          musicMaster.connect(audioContext.destination);
+        }
+        await audioContext.resume();
+        musicMaster.gain.setTargetAtTime(0.22, audioContext.currentTime, 0.6);
+        // Soft layered drone and a slow minor-key motif, generated locally.
+        playMusicNote(55, audioContext.currentTime, 18, 0.12);
+        playMusicNote(82.41, audioContext.currentTime, 18, 0.045);
+        const notes = [110, 130.81, 164.81, 146.83, 110, 98, 130.81, 164.81];
+        musicStep = 0;
+        musicTimer = window.setInterval(() => {
+          if (!audioContext || audioContext.state !== "running") return;
+          const now = audioContext.currentTime;
+          playMusicNote(notes[musicStep % notes.length], now, 3.4, 0.055, "triangle");
+          if (musicStep % 4 === 0) playMusicNote(notes[(musicStep + 2) % notes.length] / 2, now, 5.5, 0.025);
+          musicStep++;
+        }, 2400);
+        musicToggle.setAttribute("aria-pressed", "true");
+        musicToggle.textContent = "MUSIC: ON";
+      };
+      musicToggle.addEventListener("click", async () => {
+        if (musicToggle.getAttribute("aria-pressed") === "true") {
+          stopMusic();
+        } else {
+          try { await startMusic(); }
+          catch { musicToggle.textContent = "TAP TO RETRY"; }
+        }
+      });
 
       const toggle = document.querySelector("#particleToggle");
       const canvas = document.querySelector("#embers");
