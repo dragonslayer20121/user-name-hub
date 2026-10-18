@@ -71,6 +71,27 @@
     @keyframes aura{0%,100%{box-shadow:0 0 20px #ef173820,inset 0 0 15px #ef173810}50%{box-shadow:0 0 42px #ef173850,inset 0 0 25px #ef17381c}}
     @keyframes blink{50%{opacity:.4}}
     @keyframes rise{to{opacity:1;transform:translateY(0)}}
+
+    .game-panel{border:1px solid #512033;border-radius:16px;padding:20px;background:linear-gradient(145deg,#190d16ee,#0d0910f2);box-shadow:0 12px 36px #0005}
+    .game-intro{color:var(--muted);font-size:.86rem;line-height:1.6;margin:10px 0 18px}
+    .game-entry{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .game-entry input{flex:1;min-width:170px;min-height:40px;padding:10px 12px;color:#fff;background:#0a070b;border:1px solid #653044;border-radius:8px;font:inherit}
+    .game-entry input:focus{outline:2px solid #ff4962;outline-offset:2px}
+    .game-stats{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0;color:#d9c8d0;font-size:.8rem}
+    .game-stats strong{color:#ff7184}
+    .hunt-arena{position:relative;min-height:250px;overflow:hidden;border:1px solid #542033;border-radius:12px;background:radial-gradient(ellipse at 50% 50%,#34091b 0%,#100911 58%,#080609 100%);isolation:isolate}
+    .hunt-arena:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;background:linear-gradient(transparent 49%,#a21a3a22 50%,transparent 51%),linear-gradient(90deg,transparent 49%,#a21a3a22 50%,transparent 51%);background-size:32px 32px}
+    .arena-message{position:absolute;inset:0;display:grid;place-items:center;padding:18px;text-align:center;color:#b9a8b2;font-size:.85rem;line-height:1.6;pointer-events:none}
+    .shadow-orb{position:absolute;z-index:2;width:42px;height:42px;border-radius:50%;border:1px solid #ff7890;background:radial-gradient(circle at 35% 30%,#fff0f3,#ff3156 22%,#81051f 62%,#17050d 75%);box-shadow:0 0 12px #ff234f,0 0 28px #d10b3b;cursor:pointer;animation:orb-pulse .8s ease-in-out infinite alternate}
+    .shadow-orb:focus-visible{outline:3px solid white;outline-offset:4px}
+    .leaderboard{margin-top:18px;padding-top:16px;border-top:1px solid #ffffff16}
+    .leaderboard h3{margin:0 0 10px;color:#ff8090;font-size:.72rem;letter-spacing:.2em}
+    .score-row{display:grid;grid-template-columns:35px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #ffffff0d;color:#cfc0c8;font-size:.82rem}
+    .score-rank{color:#ff7184;font-weight:900}.score-points{color:#fff;font-weight:800}
+    .game-note{color:#81747b;font-size:.72rem;line-height:1.6;margin:12px 0 0}
+    @keyframes orb-pulse{from{transform:scale(.88);filter:brightness(.9)}to{transform:scale(1.08);filter:brightness(1.25)}}
+    @media(max-width:560px){.hunt-arena{min-height:220px}}
+
     @media(max-width:560px){.wrap{width:90%}header{padding:56px 0 38px}.sectionhead{align-items:start;flex-direction:column}.card{min-height:160px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.card{opacity:1;transform:none}.animated-backdrop{will-change:auto}}
   </style>
@@ -102,6 +123,24 @@
       <div class="grid" id="grid"></div>
       <p class="note">Some profile slots are placeholders for now. Add your usernames and profile URLs in the <strong>profiles</strong> list inside this file. Never put passwords, private emails, or recovery details here.</p>
     </section>
+
+    <section id="shadow-hunt">
+      <div class="sectionhead"><h2>◆ &nbsp; SHADOW HUNT</h2><span class="hint">30 SECONDS · CATCH THE ORBS</span></div>
+      <div class="game-panel">
+        <p class="game-intro">Enter your player name first, then start the hunt. Click the glowing shadow orb as many times as you can before time runs out.</p>
+        <form class="game-entry" id="huntForm">
+          <input id="playerName" name="playerName" maxlength="18" autocomplete="nickname" placeholder="Enter your player name" aria-label="Player name" required>
+          <button id="startHunt" type="submit">START HUNT</button>
+        </form>
+        <div class="game-stats"><span>PLAYER: <strong id="activePlayer">—</strong></span><span>SCORE: <strong id="huntScore">0</strong></span><span>TIME: <strong id="huntTime">30</strong>s</span></div>
+        <div class="hunt-arena" id="huntArena" aria-label="Shadow Hunt game area">
+          <div class="arena-message" id="arenaMessage">Enter your name and press START HUNT to begin.</div>
+        </div>
+        <div class="leaderboard"><h3>◆ LOCAL LEADERBOARD — TOP 10</h3><div id="leaderboardRows"><p class="game-note">No scores yet. Be the first Shadow Hunter.</p></div></div>
+        <p class="game-note">Leaderboard note: this static website saves scores in this browser on this device only. It is not a shared online leaderboard yet, and clearing browser data can erase scores. Use a nickname—don't enter private information.</p>
+      </div>
+    </section>
+
     <footer>ONE IDENTITY. MANY WORLDS.<br><strong>POWERED BY THE SHADOWS</strong><br>BUILT WITH HTML · CSS · JAVASCRIPT</footer>
   </div>
   <script>
@@ -262,6 +301,92 @@
       }
       card.append(top, username, actions); grid.append(card);
     });
+
+
+    // Shadow Hunt game: name required, 30-second round, browser-local top-ten leaderboard.
+    (() => {
+      const form = document.querySelector("#huntForm");
+      const nameInput = document.querySelector("#playerName");
+      const arena = document.querySelector("#huntArena");
+      const message = document.querySelector("#arenaMessage");
+      const scoreText = document.querySelector("#huntScore");
+      const timeText = document.querySelector("#huntTime");
+      const activePlayer = document.querySelector("#activePlayer");
+      const startButton = document.querySelector("#startHunt");
+      const leaderboardRows = document.querySelector("#leaderboardRows");
+      const storageKey = "shadowMonarchHuntLeaderboardV1";
+      let score = 0, timeLeft = 30, timer = null, playing = false, player = "";
+      function readScores() {
+        try {
+          const value = JSON.parse(localStorage.getItem(storageKey) || "[]");
+          return Array.isArray(value) ? value.filter(s => s && typeof s.name === "string" && Number.isFinite(s.score)) : [];
+        } catch { return []; }
+      }
+      function renderLeaderboard() {
+        const scores = readScores().sort((a,b) => b.score - a.score).slice(0,10);
+        leaderboardRows.replaceChildren();
+        if (!scores.length) {
+          const empty = document.createElement("p"); empty.className = "game-note"; empty.textContent = "No scores yet. Be the first Shadow Hunter."; leaderboardRows.append(empty); return;
+        }
+        scores.forEach((entry,index) => {
+          const row = document.createElement("div"); row.className = "score-row";
+          const rank = document.createElement("span"); rank.className = "score-rank"; rank.textContent = "#" + (index + 1);
+          const name = document.createElement("span"); name.textContent = entry.name;
+          const points = document.createElement("span"); points.className = "score-points"; points.textContent = entry.score + " pts";
+          row.append(rank,name,points); leaderboardRows.append(row);
+        });
+      }
+      function placeOrb() {
+        arena.querySelector(".shadow-orb")?.remove();
+        const orb = document.createElement("button");
+        orb.type = "button"; orb.className = "shadow-orb"; orb.setAttribute("aria-label","Catch shadow orb");
+        const maxX = Math.max(0, arena.clientWidth - 48);
+        const maxY = Math.max(0, arena.clientHeight - 48);
+        orb.style.left = (8 + Math.random() * Math.max(0, maxX - 8)) + "px";
+        orb.style.top = (8 + Math.random() * Math.max(0, maxY - 8)) + "px";
+        orb.addEventListener("click", () => {
+          if (!playing) return;
+          score++; scoreText.textContent = String(score); placeOrb();
+        });
+        arena.append(orb);
+      }
+      function endHunt() {
+        playing = false;
+        if (timer) window.clearInterval(timer);
+        timer = null;
+        arena.querySelector(".shadow-orb")?.remove();
+        startButton.disabled = false; startButton.textContent = "PLAY AGAIN";
+        message.hidden = false;
+        message.textContent = player + " scored " + score + " points! Enter a name and play again.";
+        try {
+          const scores = readScores();
+          scores.push({name:player,score});
+          scores.sort((a,b) => b.score - a.score);
+          localStorage.setItem(storageKey, JSON.stringify(scores.slice(0,50)));
+          renderLeaderboard();
+        } catch {
+          message.textContent += " (This browser blocked saving the leaderboard.)";
+        }
+      }
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        const entered = nameInput.value.trim().replace(/\s+/g," ");
+        if (!entered) { nameInput.focus(); return; }
+        if (playing) return;
+        player = entered.slice(0,18);
+        score = 0; timeLeft = 30; playing = true;
+        scoreText.textContent = "0"; timeText.textContent = "30";
+        activePlayer.textContent = player;
+        message.hidden = true;
+        startButton.disabled = true; startButton.textContent = "HUNTING...";
+        placeOrb();
+        timer = window.setInterval(() => {
+          timeLeft--; timeText.textContent = String(timeLeft);
+          if (timeLeft <= 0) endHunt();
+        },1000);
+      });
+      renderLeaderboard();
+    })();
 
     // Lightweight ambient ember particles; automatically adapts to screen size.
     (() => {
