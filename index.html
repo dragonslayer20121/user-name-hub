@@ -149,6 +149,19 @@
 
     @media(max-width:560px){.wrap{width:90%}header{padding:56px 0 38px}.sectionhead{align-items:start;flex-direction:column}.card{min-height:160px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.card{opacity:1;transform:none}.animated-backdrop{will-change:auto}}
+  
+    /* Secret logo transformation — click the sigil to awaken its hidden form. */
+    @keyframes secret-transform{0%{transform:scale(1) rotate(0);filter:brightness(1)}18%{transform:scale(1.18) rotate(-8deg);filter:brightness(2.2)}38%{transform:scale(.88) rotate(8deg);filter:brightness(1.5)}62%{transform:scale(1.25) rotate(0);filter:brightness(2.8)}100%{transform:scale(1) rotate(0);filter:brightness(1)}}
+    @keyframes secret-ring{0%{opacity:0;transform:scale(.35) rotate(0)}35%{opacity:1}100%{opacity:0;transform:scale(2.7) rotate(150deg)}}
+    .sigil{position:relative;cursor:pointer;user-select:none}
+    .sigil.secret-transforming{animation:secret-transform 1.25s ease-in-out}
+    .sigil.secret-transforming:after{content:"";position:absolute;inset:-10px;border:2px solid var(--red);border-radius:30%;box-shadow:0 0 18px var(--red),inset 0 0 18px var(--red);pointer-events:none;animation:secret-ring 1.25s ease-out forwards}
+    body.secret-awakened h1{text-shadow:0 0 18px var(--red),0 0 42px var(--red),0 0 80px var(--red)}
+    body.secret-awakened .sigil{box-shadow:0 0 45px var(--red),inset 0 0 30px var(--red)}
+    .secret-toast{position:fixed;left:50%;bottom:24px;z-index:40;transform:translate(-50%,18px);opacity:0;pointer-events:none;padding:12px 18px;border:1px solid var(--red);border-radius:10px;background:#090609ed;color:#fff;font-size:.72rem;font-weight:900;letter-spacing:.18em;text-align:center;box-shadow:0 0 28px color-mix(in srgb,var(--red) 45%,transparent);transition:opacity .25s,transform .25s}
+    .secret-toast.visible{opacity:1;transform:translate(-50%,0)}
+    @media(prefers-reduced-motion:reduce){.sigil.secret-transforming,.sigil.secret-transforming:after{animation-duration:.01ms}}
+
   </style>
 </head>
 <body>
@@ -359,6 +372,51 @@
           aura.style.opacity = "0";
         });
       }
+    })();
+
+
+    // Hidden transformation: click the main sigil to briefly unleash its secret form.
+    (() => {
+      const sigil = document.querySelector("header .sigil");
+      if (!sigil) return;
+      const toast = document.createElement("div");
+      toast.className = "secret-toast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      document.body.append(toast);
+      const messages = {
+        shadow: "SECRET AWAKENING UNLOCKED",
+        naruto: "NINE-TAILS CHAKRA RELEASE",
+        "black-clover": "ANTI-MAGIC: LIMIT BREAK",
+        bleach: "BANKAI: SPIRITUAL PRESSURE RELEASE"
+      };
+      let toastTimer, resetTimer;
+      sigil.setAttribute("role", "button");
+      sigil.setAttribute("tabindex", "0");
+      sigil.setAttribute("aria-label", "Trigger secret transformation");
+      const transform = () => {
+        const theme = document.body.dataset.theme || "shadow";
+        sigil.classList.remove("secret-transforming");
+        void sigil.offsetWidth;
+        sigil.classList.add("secret-transforming");
+        document.body.classList.add("secret-awakened");
+        toast.textContent = messages[theme] || messages.shadow;
+        toast.classList.add("visible");
+        window.clearTimeout(toastTimer);
+        window.clearTimeout(resetTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove("visible"), 1900);
+        resetTimer = window.setTimeout(() => {
+          sigil.classList.remove("secret-transforming");
+          document.body.classList.remove("secret-awakened");
+        }, 1350);
+      };
+      sigil.addEventListener("click", transform);
+      sigil.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          transform();
+        }
+      });
     })();
 
     // Edit these entries to add your real public usernames and profile links.
