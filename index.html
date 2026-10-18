@@ -12,10 +12,9 @@
     html{scroll-behavior:smooth}
     body{margin:0;min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse at 50% -10%,#4b0718 0,transparent 45%),var(--bg);color:#f8f3f5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
     a{color:inherit}
-    body.cursor-glow{cursor:none}
-    .cursor-glow-dot{position:fixed;left:0;top:0;width:18px;height:18px;border:2px solid #ff284d;border-radius:50%;pointer-events:none;z-index:9999;opacity:0;transform:translate(-50%,-50%);background:#ff17454d;box-shadow:0 0 12px #ff1745,0 0 28px #ef1738,0 0 55px #ef173899;transition:width .12s,height .12s,opacity .15s}
-    .cursor-aura{position:fixed;left:0;top:0;width:190px;height:190px;border-radius:50%;pointer-events:none;z-index:9998;opacity:0;transform:translate(-50%,-50%);background:radial-gradient(circle,#ff17354d 0%,#ef17382b 24%,#ef173817 44%,#ef17380a 60%,transparent 74%);filter:blur(3px)}
-    body.cursor-glow .cursor-glow-dot,body.cursor-glow .cursor-aura{opacity:1}
+    body.cursor-glow,body.cursor-glow *{cursor:none!important}
+    .cursor-glow-dot{position:fixed;left:0;top:0;width:18px;height:18px;border:2px solid #ff284d;border-radius:50%;pointer-events:none!important;user-select:none;z-index:2147483647;opacity:0;transform:translate3d(-100px,-100px,0);background:#ff17454d;box-shadow:0 0 12px #ff1745,0 0 28px #ef1738,0 0 55px #ef173899;transition:width .12s,height .12s,opacity .15s;will-change:transform}
+    .cursor-aura{position:fixed;left:0;top:0;width:190px;height:190px;border-radius:50%;pointer-events:none!important;user-select:none;z-index:2147483646;opacity:0;transform:translate3d(-100px,-100px,0);background:radial-gradient(circle,#ff17354d 0%,#ef17382b 24%,#ef173817 44%,#ef17380a 60%,transparent 74%);filter:blur(3px);will-change:transform}
     body.cursor-glow a:hover~.cursor-glow-dot,body.cursor-glow button:hover~.cursor-glow-dot{width:32px;height:32px;background:#ff17455c;box-shadow:0 0 15px #ff1745,0 0 35px #ef1738,0 0 60px #ef173899}
     .awakening{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at center,#3d0717 0%,#090609 68%);transition:opacity .7s,visibility .7s}
     .awakening.hidden{opacity:0;visibility:hidden;pointer-events:none}
@@ -122,17 +121,25 @@
 
       const cursor = document.querySelector("#cursorGlow");
       const aura = document.querySelector("#cursorAura");
-      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+      if (finePointer.matches) {
         document.body.classList.add("cursor-glow");
-        window.addEventListener("pointermove", event => {
-          const position = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`;
-          cursor.style.transform = position;
-          aura.style.transform = position;
+        const moveCursor = event => {
+          const x = event.clientX;
+          const y = event.clientY;
+          cursor.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+          aura.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
           cursor.style.opacity = "1";
           aura.style.opacity = "1";
-        }, {passive:true});
-        document.documentElement.addEventListener("pointerleave", () => {
-          cursor.style.opacity = "0"; aura.style.opacity = "0";
+        };
+        window.addEventListener("mousemove", moveCursor, {passive:true});
+        window.addEventListener("mouseenter", () => {
+          cursor.style.opacity = "1";
+          aura.style.opacity = "1";
+        });
+        window.addEventListener("mouseleave", () => {
+          cursor.style.opacity = "0";
+          aura.style.opacity = "0";
         });
       }
     })();
