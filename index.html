@@ -24,6 +24,38 @@
     .awakening p{color:#c4b4bd;line-height:1.7}
     .awakening .enter-button{margin-top:18px;padding:13px 20px;font-weight:800;letter-spacing:.12em;background:#780b22;border-color:#ef3753}
     .controls{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+    .theme-select{max-width:170px;min-height:35px;padding:8px 10px;border:1px solid #54202e;border-radius:8px;background:#170b11;color:#f4e8ee;font:inherit;font-size:.68rem;letter-spacing:.04em}
+    body[data-theme="naruto"]{--bg:#090d18;--panel:#111827;--red:#ff7b18;--red2:#b94b0b;--muted:#a9b7cc;--line:#3d526e}
+    body[data-theme="naruto"] .animated-backdrop{background:radial-gradient(ellipse at 18% 35%,#173f9bb0 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#ff790f70 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#152f68a8 0%,transparent 45%),#080b13}
+    body[data-theme="naruto"] .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#2369ff45 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#ff7b1840 0%,transparent 36%)}
+    body[data-theme="naruto"] .animated-backdrop:after{background:radial-gradient(ellipse at 60% 25%,#ff8a142e 0%,transparent 32%),radial-gradient(ellipse at 35% 80%,#2369ff40 0%,transparent 38%)}
+    body[data-theme="naruto"] .brand span,body[data-theme="naruto"] .eyebrow,body[data-theme="naruto"] h2,body[data-theme="naruto"] .awakening-kicker,body[data-theme="naruto"] .symbol{color:#ff9b42}
+    body[data-theme="naruto"] .sigil,body[data-theme="naruto"] .card,body[data-theme="naruto"] .game-panel{border-color:#354e79}
+    body[data-theme="naruto"] .card:before,body[data-theme="naruto"] .rule{background:linear-gradient(90deg,transparent,#ff7b18,transparent)}
+    body[data-theme="naruto"] .status .dot,body[data-theme="naruto"] .dot{background:#ff7b18;box-shadow:0 0 12px #ff7b18}
+    body[data-theme="naruto"] button,body[data-theme="naruto"] .visit,body[data-theme="naruto"] .control-button,body[data-theme="naruto"] .theme-select{border-color:#3c5d92;background:#101c33}
+    body[data-theme="naruto"] button:hover,body[data-theme="naruto"] .visit:hover{background:#8b3c0c;border-color:#ff9b42}
+    body[data-theme="black-clover"]{--bg:#070b08;--panel:#0e1711;--red:#48df79;--red2:#16783c;--muted:#a2b8a8;--line:#244b34}
+    body[data-theme="black-clover"] .animated-backdrop{background:radial-gradient(ellipse at 18% 35%,#0d642fa8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#171e19c9 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#143e29a8 0%,transparent 45%),#060a07}
+    body[data-theme="black-clover"] .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#32db7045 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#080b08aa 0%,transparent 36%)}
+    body[data-theme="black-clover"] .animated-backdrop:after{background:radial-gradient(ellipse at 60% 25%,#52f58d22 0%,transparent 32%),radial-gradient(ellipse at 35% 80%,#14713e45 0%,transparent 38%)}
+    body[data-theme="black-clover"] .brand span,body[data-theme="black-clover"] .eyebrow,body[data-theme="black-clover"] h2,body[data-theme="black-clover"] .awakening-kicker,body[data-theme="black-clover"] .symbol{color:#69f29a}
+    body[data-theme="black-clover"] .sigil,body[data-theme="black-clover"] .card,body[data-theme="black-clover"] .game-panel{border-color:#28583a}
+    body[data-theme="black-clover"] .card:before,body[data-theme="black-clover"] .rule{background:linear-gradient(90deg,transparent,#48df79,transparent)}
+    body[data-theme="black-clover"] .status .dot,body[data-theme="black-clover"] .dot{background:#48df79;box-shadow:0 0 12px #48df79}
+    body[data-theme="black-clover"] button,body[data-theme="black-clover"] .visit,body[data-theme="black-clover"] .control-button,body[data-theme="black-clover"] .theme-select{border-color:#28583a;background:#0b1b11}
+    body[data-theme="black-clover"] button:hover,body[data-theme="black-clover"] .visit:hover{background:#14562d;border-color:#69f29a}
+    body[data-theme="bleach"]{--bg:#080b13;--panel:#101521;--red:#65c8ff;--red2:#1b6ca7;--muted:#aab7cc;--line:#2c4565}
+    body[data-theme="bleach"] .animated-backdrop{background:radial-gradient(ellipse at 18% 35%,#123b80a8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#e9f5ff38 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#2b155ca8 0%,transparent 45%),#070a12}
+    body[data-theme="bleach"] .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#49b9ff45 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#c9eaff30 0%,transparent 36%)}
+    body[data-theme="bleach"] .animated-backdrop:after{background:radial-gradient(ellipse at 60% 25%,#a9dfff28 0%,transparent 32%),radial-gradient(ellipse at 35% 80%,#4631b340 0%,transparent 38%)}
+    body[data-theme="bleach"] .brand span,body[data-theme="bleach"] .eyebrow,body[data-theme="bleach"] h2,body[data-theme="bleach"] .awakening-kicker,body[data-theme="bleach"] .symbol{color:#9bdfff}
+    body[data-theme="bleach"] .sigil,body[data-theme="bleach"] .card,body[data-theme="bleach"] .game-panel{border-color:#2d4f78}
+    body[data-theme="bleach"] .card:before,body[data-theme="bleach"] .rule{background:linear-gradient(90deg,transparent,#65c8ff,transparent)}
+    body[data-theme="bleach"] .status .dot,body[data-theme="bleach"] .dot{background:#65c8ff;box-shadow:0 0 12px #65c8ff}
+    body[data-theme="bleach"] button,body[data-theme="bleach"] .visit,body[data-theme="bleach"] .control-button,body[data-theme="bleach"] .theme-select{border-color:#2d4f78;background:#0d1729}
+    body[data-theme="bleach"] button:hover,body[data-theme="bleach"] .visit:hover{background:#16466d;border-color:#9bdfff}
+
     .control-button{font-size:.68rem;letter-spacing:.06em;color:#d9c8d0;background:#170b11;border-color:#54202e}
     @keyframes awaken-in{from{opacity:0;transform:translateY(18px) scale(.98);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
     .animated-backdrop{position:fixed;inset:-12%;z-index:0;pointer-events:none;overflow:hidden;opacity:.8;background:radial-gradient(ellipse at 18% 35%,#310b75a8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#60051fa8 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#26085a8a 0%,transparent 45%),#080609;animation:backdrop-drift 24s ease-in-out infinite alternate;will-change:background-position}
@@ -109,7 +141,7 @@
   <canvas id="embers" aria-hidden="true"></canvas><div class="scanlines" aria-hidden="true"></div>
   <div class="cursor-aura" id="cursorAura" aria-hidden="true"></div><div class="cursor-glow-dot" id="cursorGlow" aria-hidden="true"></div>
   <div class="wrap">
-    <nav><div class="brand">DRAGON<span>SLAYER</span> // HUB</div><div class="controls"><button class="control-button" id="musicToggle" type="button" aria-pressed="false">MUSIC: OFF</button><button class="control-button" id="particleToggle" type="button" aria-pressed="true">SHADOWS: ON</button><a class="navlink" href="#profiles">EXPLORE PROFILES ↓</a></div></nav>
+    <nav><div class="brand">DRAGON<span>SLAYER</span> // HUB</div><div class="controls"><label for="themePicker" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Choose website theme</label><select class="theme-select" id="themePicker" aria-label="Choose website theme"><option value="shadow">SHADOW MONARCH</option><option value="naruto">NARUTO</option><option value="black-clover">BLACK CLOVER</option><option value="bleach">BLEACH</option></select><button class="control-button" id="musicToggle" type="button" aria-pressed="false">MUSIC: OFF</button><button class="control-button" id="particleToggle" type="button" aria-pressed="true">SHADOWS: ON</button><a class="navlink" href="#profiles">EXPLORE PROFILES ↓</a></div></nav>
     <header>
       <div class="sigil" aria-hidden="true">♜</div>
       <div class="eyebrow">THE SHADOWS ARE WAITING</div>
@@ -145,6 +177,32 @@
     <footer>ONE IDENTITY. MANY WORLDS.<br><strong>POWERED BY THE SHADOWS</strong><br>BUILT WITH HTML · CSS · JAVASCRIPT</footer>
   </div>
   <script>
+    // Anime theme selector. Theme changes are local to this page view.
+    (() => {
+      const picker = document.querySelector("#themePicker");
+      const themes = {
+        "shadow": {title:"SHADOW MONARCH", kicker:"THE SHADOWS ARE WAITING", tagline:"You can run from the shadows. They still answer to me.", sigil:"♜", intro:"ARISE,<br>SHADOW MONARCH", introKicker:"A NEW POWER HAS AWAKENED", introText:"The portal is open. Your identities await beyond the shadows.", enter:"ENTER THE SHADOWS ↗"},
+        "naruto": {title:"SHINOBI LEGACY", kicker:"THE WILL OF FIRE NEVER FADES", tagline:"A shinobi's true strength is the will to never give up.", sigil:"卍", intro:"AWAKEN,<br>SHINOBI", introKicker:"THE WILL OF FIRE AWAKENS", introText:"Your ninja way begins here. Believe it.", enter:"ENTER THE SHINOBI WORLD ↗"},
+        "black-clover": {title:"WIZARD KING", kicker:"SURPASS YOUR LIMITS", tagline:"No magic? Then I'll surpass every limit with my own hands.", sigil:"♣", intro:"RISE,<br>WIZARD KING", introKicker:"A GRIMOIRE HAS CHOSEN YOU", introText:"Even without magic, your will can shake the kingdom.", enter:"OPEN THE GRIMOIRE ↗"},
+        "bleach": {title:"SOUL REAPER", kicker:"THE BLADE THAT CUTS DESTINY", tagline:"If fate stands in my way, then I'll cut through fate.", sigil:"卍", intro:"AWAKEN,<br>SOUL REAPER", introKicker:"YOUR SPIRITUAL PRESSURE RISES", introText:"Draw your blade. The boundary between worlds is waiting.", enter:"CROSS THE GATE ↗"}
+      };
+      function applyTheme(key) {
+        const theme = themes[key] || themes.shadow;
+        document.body.dataset.theme = key;
+        document.querySelector("h1").innerHTML = theme.title.replace(" ", "<br>");
+        document.querySelector(".eyebrow").textContent = theme.kicker;
+        document.querySelector("header .sigil").textContent = theme.sigil;
+        document.querySelector("header p[style]").textContent = "“" + theme.tagline + "”";
+        document.querySelector(".awakening h2").innerHTML = theme.intro;
+        document.querySelector(".awakening-kicker").textContent = theme.introKicker;
+        document.querySelector(".awakening-inner p").textContent = theme.introText;
+        document.querySelector("#enterHub").textContent = theme.enter;
+        document.title = theme.title + " — Identity Hub";
+      }
+      picker.addEventListener("change", () => applyTheme(picker.value));
+      applyTheme(picker.value);
+    })();
+
     // Awakening intro, particle toggle, and subtle desktop cursor effect.
     (() => {
       const intro = document.querySelector("#awakening");
