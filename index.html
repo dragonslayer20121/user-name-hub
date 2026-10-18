@@ -12,6 +12,20 @@
     html{scroll-behavior:smooth}
     body{margin:0;min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse at 50% -10%,#4b0718 0,transparent 45%),var(--bg);color:#f8f3f5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
     a{color:inherit}
+    body.cursor-glow{cursor:none}
+    .cursor-glow-dot{position:fixed;left:0;top:0;width:18px;height:18px;border:1px solid #ff4962;border-radius:50%;pointer-events:none;z-index:20;opacity:0;transform:translate(-50%,-50%);box-shadow:0 0 18px #ef173866;transition:width .15s,height .15s,opacity .2s}
+    body.cursor-glow .cursor-glow-dot{opacity:.8}
+    body.cursor-glow a:hover~.cursor-glow-dot,body.cursor-glow button:hover~.cursor-glow-dot{width:28px;height:28px}
+    .awakening{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at center,#3d0717 0%,#090609 68%);transition:opacity .7s,visibility .7s}
+    .awakening.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .awakening-inner{text-align:center;max-width:600px;animation:awaken-in 1.1s both}
+    .awakening-kicker{font-size:.7rem;letter-spacing:.35em;color:#ff7184}
+    .awakening h2{margin:18px 0;font-size:clamp(2.3rem,9vw,5.5rem);line-height:1.02;letter-spacing:.08em;color:#fff;text-shadow:0 0 28px #ef173866}
+    .awakening p{color:#c4b4bd;line-height:1.7}
+    .awakening .enter-button{margin-top:18px;padding:13px 20px;font-weight:800;letter-spacing:.12em;background:#780b22;border-color:#ef3753}
+    .controls{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+    .control-button{font-size:.68rem;letter-spacing:.06em;color:#d9c8d0;background:#170b11;border-color:#54202e}
+    @keyframes awaken-in{from{opacity:0;transform:translateY(18px) scale(.98);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
     #embers{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.65}
     .scanlines{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.08;background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px,transparent 5px)}
     .wrap{position:relative;z-index:1;width:min(1050px,92%);margin:auto;padding:24px 0 38px}
@@ -56,9 +70,18 @@
   </style>
 </head>
 <body>
+  <div class="awakening" id="awakening" role="dialog" aria-modal="true" aria-labelledby="awakeningTitle">
+    <div class="awakening-inner">
+      <div class="awakening-kicker">A NEW POWER HAS AWAKENED</div>
+      <h2 id="awakeningTitle">ARISE,<br>SHADOW MONARCH</h2>
+      <p>The portal is open. Your identities await beyond the shadows.</p>
+      <button class="enter-button" id="enterHub" type="button">ENTER THE SHADOWS ↗</button>
+    </div>
+  </div>
   <canvas id="embers" aria-hidden="true"></canvas><div class="scanlines" aria-hidden="true"></div>
+  <div class="cursor-glow-dot" id="cursorGlow" aria-hidden="true"></div>
   <div class="wrap">
-    <nav><div class="brand">DRAGON<span>SLAYER</span> // HUB</div><a class="navlink" href="#profiles">EXPLORE PROFILES ↓</a></nav>
+    <nav><div class="brand">DRAGON<span>SLAYER</span> // HUB</div><div class="controls"><button class="control-button" id="particleToggle" type="button" aria-pressed="true">SHADOWS: ON</button><a class="navlink" href="#profiles">EXPLORE PROFILES ↓</a></div></nav>
     <header>
       <div class="sigil" aria-hidden="true">♜</div>
       <div class="eyebrow">THE SHADOWS ARE WAITING</div>
@@ -75,6 +98,37 @@
     <footer>ONE IDENTITY. MANY WORLDS.<br><strong>POWERED BY THE SHADOWS</strong><br>BUILT WITH HTML · CSS · JAVASCRIPT</footer>
   </div>
   <script>
+    // Awakening intro, particle toggle, and subtle desktop cursor effect.
+    (() => {
+      const intro = document.querySelector("#awakening");
+      const enter = document.querySelector("#enterHub");
+      const closeIntro = () => {
+        intro.classList.add("hidden");
+        document.querySelector("#profiles").setAttribute("tabindex", "-1");
+        document.querySelector("#profiles").focus({preventScroll:true});
+      };
+      enter.addEventListener("click", closeIntro);
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) intro.classList.add("hidden");
+
+      const toggle = document.querySelector("#particleToggle");
+      const canvas = document.querySelector("#embers");
+      toggle.addEventListener("click", () => {
+        const enabled = toggle.getAttribute("aria-pressed") !== "true";
+        toggle.setAttribute("aria-pressed", String(enabled));
+        toggle.textContent = enabled ? "SHADOWS: ON" : "SHADOWS: OFF";
+        canvas.style.opacity = enabled ? ".65" : "0";
+      });
+
+      const cursor = document.querySelector("#cursorGlow");
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.body.classList.add("cursor-glow");
+        window.addEventListener("mousemove", event => {
+          cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`;
+        }, {passive:true});
+      }
+    })();
+
     // Edit these entries to add your real public usernames and profile links.
     // Leave url blank until you know the correct public profile address.
     const profiles = [
