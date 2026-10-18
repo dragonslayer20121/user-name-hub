@@ -15,6 +15,15 @@
     body.cursor-glow,body.cursor-glow *{cursor:none!important}
     .cursor-glow-dot{position:fixed;left:0;top:0;width:18px;height:18px;border:2px solid #ff284d;border-radius:50%;pointer-events:none!important;user-select:none;z-index:2147483647;opacity:0;transform:translate3d(-100px,-100px,0);background:#ff17454d;box-shadow:0 0 12px #ff1745,0 0 28px #ef1738,0 0 55px #ef173899;transition:width .12s,height .12s,opacity .15s;will-change:transform}
     .cursor-aura{position:fixed;left:0;top:0;width:190px;height:190px;border-radius:50%;pointer-events:none!important;user-select:none;z-index:2147483646;opacity:0;transform:translate3d(-100px,-100px,0);background:radial-gradient(circle,#ff17354d 0%,#ef17382b 24%,#ef173817 44%,#ef17380a 60%,transparent 74%);filter:blur(3px);will-change:transform}
+    /* Theme-specific custom cursor artifacts */
+    body[data-theme="naruto"] .cursor-glow-dot{width:28px;height:28px;border:2px solid #ffe2a1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff9d6 0 5%,#fff0a0 8%,#ffb52e 22%,#ff7900 43%,#e43b00 62%,#541300 74%,#ff9b18 78%,#ffdf8a 83%,#ff6a00 88%,transparent 91%);box-shadow:0 0 8px #ffb52e,0 0 18px #ff7900,0 0 30px #ff4b00;transition:width .12s,height .12s,opacity .15s}
+    body[data-theme="naruto"] .cursor-glow-dot:after{content:"";position:absolute;inset:4px;border:1px solid #fff0b0;border-radius:50%;background:conic-gradient(from 20deg,transparent 0 12%,#fff3bd 16%,transparent 23% 39%,#fff3bd 44%,transparent 51% 68%,#fff3bd 74%,transparent 82%);filter:blur(.4px);animation:rasengan-spin .65s linear infinite}
+    @keyframes rasengan-spin{to{transform:rotate(360deg)}}
+    body[data-theme="black-clover"] .cursor-glow-dot{width:24px;height:30px;border:2px solid #ff526c;border-radius:5px 7px 5px 7px;background:linear-gradient(135deg,#1b0a10 0 42%,#4b0b1b 43% 55%,#13070b 56%);box-shadow:0 0 9px #f01836,0 0 20px #f0183680;transform-origin:center;clip-path:polygon(8% 0,92% 0,100% 12%,94% 100%,50% 88%,6% 100%,0 12%)}
+    body[data-theme="black-clover"] .cursor-glow-dot:after{content:"✦";position:absolute;inset:0;display:grid;place-items:center;color:#ff526c;font-size:15px;font-weight:900;text-shadow:0 0 7px #f01836;animation:grimoire-pulse 1.2s ease-in-out infinite alternate}
+    @keyframes grimoire-pulse{from{filter:brightness(.8)}to{filter:brightness(1.7)}}
+    body[data-theme="naruto"] .cursor-aura{background:radial-gradient(circle,#ff8a004d 0%,#ff6a002b 24%,#ff4b0017 44%,#ff9b180a 60%,transparent 74%)}
+    body[data-theme="black-clover"] .cursor-aura{background:radial-gradient(circle,#f0183640 0%,#f0183625 24%,#f0183612 44%,transparent 72%)}
     body.cursor-glow a:hover~.cursor-glow-dot,body.cursor-glow button:hover~.cursor-glow-dot{width:32px;height:32px;background:#ff17455c;box-shadow:0 0 15px #ff1745,0 0 35px #ef1738,0 0 60px #ef173899}
     .awakening{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at center,#3d0717 0%,#090609 68%);transition:opacity .7s,visibility .7s}
     .awakening.hidden{opacity:0;visibility:hidden;pointer-events:none}
