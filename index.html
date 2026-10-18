@@ -1,240 +1,159 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080808">
-  <title>Shadow Monarch | Identity Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080609">
+  <meta name="description" content="One identity. Many worlds. Find my gaming, social, and developer profiles.">
+  <title>Shadow Monarch — Identity Hub</title>
   <style>
-    :root {
-      --bg: #080808;
-      --panel: #121010;
-      --red: #e50925;
-      --muted: #a9a0a3;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: #fff;
-      background:
-        radial-gradient(ellipse at 50% 0%, #400811 0%, transparent 55%),
-        var(--bg);
-      font-family: system-ui, sans-serif;
-    }
-
-    .container {
-      width: min(900px, 92%);
-      margin: auto;
-      padding: 70px 0;
-    }
-
-    header { text-align: center; }
-
-    .sigil {
-      width: 76px;
-      height: 76px;
-      margin: auto auto 20px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--red);
-      border-radius: 22px;
-      color: var(--red);
-      font-size: 34px;
-      box-shadow: 0 0 32px #e5092530;
-      animation: pulse 3s infinite;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 7vw, 4rem);
-      letter-spacing: .12em;
-      text-shadow: 0 0 25px #e5092550;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      letter-spacing: .18em;
-      font-size: .8rem;
-    }
-
-    .line {
-      height: 2px;
-      width: 90px;
-      margin: 25px auto 45px;
-      background: var(--red);
-      box-shadow: 0 0 15px var(--red);
-    }
-
-    h2 {
-      font-size: .8rem;
-      letter-spacing: .2em;
-      color: #ef7785;
-      margin-bottom: 18px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-    }
-
-    .card {
-      background: linear-gradient(135deg, #191315, var(--panel));
-      border: 1px solid #382027;
-      border-radius: 14px;
-      padding: 22px;
-      transition: transform .25s, border-color .25s,
-                  box-shadow .25s;
-      animation: enter .6s both;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: var(--red);
-      box-shadow: 0 10px 35px #e5092518;
-    }
-
-    .card h3 { margin: 0 0 8px; }
-
-    .username {
-      color: var(--muted);
-      font-size: .9rem;
-      overflow-wrap: anywhere;
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    button, .visit {
-      cursor: pointer;
-      color: white;
-      background: #291017;
-      border: 1px solid #712034;
-      border-radius: 7px;
-      padding: 9px 12px;
-      font: inherit;
-      font-size: .8rem;
-      text-decoration: none;
-    }
-
-    button:hover, .visit:hover {
-      background: #a30b27;
-    }
-
-    footer {
-      margin-top: 45px;
-      text-align: center;
-      color: #70676b;
-      font-size: .8rem;
-    }
-
-    @keyframes pulse {
-      50% { box-shadow: 0 0 45px #e5092550; }
-    }
-
-    @keyframes enter {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
+    :root{color-scheme:dark;--bg:#080609;--panel:#120d12;--red:#ef1738;--red2:#8f071e;--muted:#a99ca5;--line:#38202a}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse at 50% -10%,#4b0718 0,transparent 45%),var(--bg);color:#f8f3f5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+    a{color:inherit}
+    #embers{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.65}
+    .scanlines{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.08;background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px,transparent 5px)}
+    .wrap{position:relative;z-index:1;width:min(1050px,92%);margin:auto;padding:24px 0 38px}
+    nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 0 28px;border-bottom:1px solid #ffffff13}
+    .brand{font-size:.78rem;font-weight:900;letter-spacing:.2em}.brand span{color:var(--red)}
+    .navlink{font-size:.8rem;color:var(--muted);text-decoration:none}.navlink:hover{color:white}
+    header{text-align:center;padding:76px 0 54px}
+    .sigil{width:76px;height:76px;margin:0 auto 22px;display:grid;place-items:center;border:1px solid var(--red);border-radius:24px;color:#ff4962;font-size:35px;background:#190910a8;box-shadow:0 0 24px #ef173825,inset 0 0 22px #ef173812;animation:aura 3s ease-in-out infinite}
+    .eyebrow{font-size:.7rem;letter-spacing:.32em;color:#ff7184;font-weight:800}
+    h1{margin:12px 0 10px;font-size:clamp(2.2rem,8vw,5.3rem);line-height:1.03;letter-spacing:.08em;font-weight:950;text-shadow:0 0 34px #ef17383d}
+    .subtitle{margin:18px auto 0;max-width:520px;color:var(--muted);line-height:1.7}
+    .rule{width:110px;height:2px;margin:30px auto;background:linear-gradient(90deg,transparent,var(--red),transparent);box-shadow:0 0 18px var(--red)}
+    .status{display:inline-flex;align-items:center;gap:9px;border:1px solid #ffffff17;border-radius:999px;padding:8px 13px;color:#d8cbd0;font-size:.72rem;background:#ffffff05}
+    .dot{width:7px;height:7px;background:#ed2745;border-radius:50%;box-shadow:0 0 12px #ed2745;animation:blink 1.8s infinite}
+    section{margin:20px 0 0}
+    .sectionhead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:18px}
+    h2{margin:0;font-size:.78rem;letter-spacing:.23em;color:#ff8090}
+    .hint{font-size:.72rem;color:#81747b}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr));gap:15px}
+    .card{position:relative;overflow:hidden;min-height:174px;padding:21px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(140deg,#1c1118e8,#100c11f2 68%);box-shadow:0 8px 28px #0003;transform:translateY(12px);opacity:0;animation:rise .65s forwards;transition:transform .25s,border-color .25s,box-shadow .25s}
+    .card:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:linear-gradient(transparent,var(--red),transparent);opacity:.75}
+    .card:after{content:"";position:absolute;width:120px;height:120px;right:-75px;top:-75px;border-radius:50%;background:#ef173815;filter:blur(6px);transition:transform .3s}
+    .card:hover{transform:translateY(-5px);border-color:#a52b42;box-shadow:0 15px 38px #ef173815}
+    .card:hover:after{transform:scale(1.8)}
+    .cardtop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .platform{font-size:1rem;font-weight:800;letter-spacing:.02em}
+    .symbol{display:grid;place-items:center;width:35px;height:35px;border-radius:10px;border:1px solid #6e2535;background:#240d16;color:#ff7184;font-size:.9rem;font-weight:900}
+    .username{margin-top:17px;color:#c5b8bf;font-size:.85rem;overflow-wrap:anywhere}
+    .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+    button,.visit{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:35px;padding:8px 11px;border:1px solid #6e2535;border-radius:8px;background:#260d16;color:#fff;font:inherit;font-size:.74rem;text-decoration:none;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+    button:hover,.visit:hover{background:#8f1028;border-color:#ef3753;transform:translateY(-1px)}
+    button:focus-visible,a:focus-visible{outline:2px solid #ff6b82;outline-offset:3px}
+    .empty{color:#81747b}
+    .note{margin-top:18px;color:#82767d;font-size:.75rem;line-height:1.6}
+    footer{margin-top:58px;padding-top:22px;border-top:1px solid #ffffff13;text-align:center;color:#786d74;font-size:.72rem;letter-spacing:.1em;line-height:2}
+    footer strong{color:#ef3652}
+    @keyframes aura{0%,100%{box-shadow:0 0 20px #ef173820,inset 0 0 15px #ef173810}50%{box-shadow:0 0 42px #ef173850,inset 0 0 25px #ef17381c}}
+    @keyframes blink{50%{opacity:.4}}
+    @keyframes rise{to{opacity:1;transform:translateY(0)}}
+    @media(max-width:560px){.wrap{width:90%}header{padding:56px 0 38px}.sectionhead{align-items:start;flex-direction:column}.card{min-height:160px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.card{opacity:1;transform:none}}
   </style>
 </head>
 <body>
-  <main class="container">
+  <canvas id="embers" aria-hidden="true"></canvas><div class="scanlines" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav><div class="brand">DRAGON<span>SLAYER</span> // HUB</div><a class="navlink" href="#profiles">EXPLORE PROFILES ↓</a></nav>
     <header>
       <div class="sigil" aria-hidden="true">♜</div>
-      <h1>SHADOW MONARCH</h1>
-      <p class="subtitle">GAMER · CREATOR · DEVELOPER</p>
-      <div class="line"></div>
+      <div class="eyebrow">THE SHADOWS ARE WAITING</div>
+      <h1>SHADOW<br>MONARCH</h1>
+      <p class="subtitle">One identity. Many worlds. A central portal to my gaming, social, and developer profiles.</p>
+      <div class="rule"></div>
+      <div class="status"><span class="dot"></span> IDENTITY HUB ONLINE</div>
     </header>
-
-    <section>
-      <h2>◆ &nbsp; MY IDENTITIES</h2>
-      <div class="grid" id="profiles"></div>
+    <section id="profiles">
+      <div class="sectionhead"><h2>◆ &nbsp; MY IDENTITIES</h2><span class="hint">SELECT A PORTAL TO ENTER</span></div>
+      <div class="grid" id="grid"></div>
+      <p class="note">Some profile slots are placeholders for now. Add your usernames and profile URLs in the <strong>profiles</strong> list inside this file. Never put passwords, private emails, or recovery details here.</p>
     </section>
-
-    <footer>
-      ONE IDENTITY. MANY WORLDS.<br>
-      <span style="color:#e50925">POWERED BY THE SHADOWS</span>
-    </footer>
-  </main>
-
+    <footer>ONE IDENTITY. MANY WORLDS.<br><strong>POWERED BY THE SHADOWS</strong><br>BUILT WITH HTML · CSS · JAVASCRIPT</footer>
+  </div>
   <script>
-    // Replace these placeholders with your public profiles.
+    // Edit these entries to add your real public usernames and profile links.
+    // Leave url blank until you know the correct public profile address.
     const profiles = [
-      { name: "GitHub", username: "YOUR_GITHUB_USERNAME",
-        url: "https://github.com/YOUR_GITHUB_USERNAME" },
-      { name: "Roblox", username: "YOUR_ROBLOX_USERNAME",
-        url: "https://www.roblox.com/users/profile" },
-      { name: "Discord", username: "YOUR_DISCORD_USERNAME",
-        url: "" },
-      { name: "YouTube", username: "YOUR_CHANNEL_NAME",
-        url: "" },
-      { name: "Steam", username: "YOUR_STEAM_USERNAME",
-        url: "" },
-      { name: "More coming soon", username: "Add your next identity",
-        url: "" }
+      {name:"GitHub", symbol:"GH", username:"dragonslayer20121", url:"https://github.com/dragonslayer20121"},
+      {name:"Roblox", symbol:"RB", username:"Add your Roblox username", url:""},
+      {name:"Discord", symbol:"DS", username:"Add your Discord username", url:""},
+      {name:"YouTube", symbol:"YT", username:"Add your channel name", url:""},
+      {name:"Steam", symbol:"ST", username:"Add your Steam username", url:""},
+      {name:"More portals", symbol:"+", username:"Add another platform when ready", url:""}
     ];
 
-    const grid = document.querySelector("#profiles");
-
+    const grid = document.querySelector("#grid");
     profiles.forEach((profile, index) => {
       const card = document.createElement("article");
       card.className = "card";
-      card.style.animationDelay = `${index * 80}ms`;
-
-      const title = document.createElement("h3");
-      title.textContent = profile.name;
-
-      const username = document.createElement("div");
-      username.className = "username";
-      username.textContent = profile.username;
-
-      const actions = document.createElement("div");
-      actions.className = "actions";
-
-      const copy = document.createElement("button");
-      copy.textContent = "Copy username";
+      card.style.animationDelay = (index * 90) + "ms";
+      const top = document.createElement("div"); top.className = "cardtop";
+      const name = document.createElement("div"); name.className = "platform"; name.textContent = profile.name;
+      const symbol = document.createElement("div"); symbol.className = "symbol"; symbol.textContent = profile.symbol;
+      top.append(name, symbol);
+      const username = document.createElement("div"); username.className = "username"; username.textContent = profile.username;
+      const actions = document.createElement("div"); actions.className = "actions";
+      const copy = document.createElement("button"); copy.type = "button"; copy.textContent = "Copy username";
       copy.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(profile.username);
-          copy.textContent = "Copied!";
-          setTimeout(() => copy.textContent = "Copy username", 1500);
+          copy.textContent = "✓ Copied";
+          window.setTimeout(() => copy.textContent = "Copy username", 1400);
         } catch {
-          copy.textContent = "Copy unavailable";
+          copy.textContent = "Clipboard blocked";
+          window.setTimeout(() => copy.textContent = "Copy username", 1600);
         }
       });
-
       actions.append(copy);
-
-      if (profile.url &&
-          !profile.url.includes("YOUR_GITHUB_USERNAME")) {
-        const visit = document.createElement("a");
-        visit.className = "visit";
-        visit.textContent = "Visit ↗";
-        visit.href = profile.url;
-        visit.target = "_blank";
-        visit.rel = "noopener noreferrer";
+      if (profile.url) {
+        const visit = document.createElement("a"); visit.className = "visit"; visit.textContent = "Visit portal ↗";
+        visit.href = profile.url; visit.target = "_blank"; visit.rel = "noopener noreferrer";
         actions.append(visit);
       }
-
-      card.append(title, username, actions);
-      grid.append(card);
+      card.append(top, username, actions); grid.append(card);
     });
+
+    // Lightweight ambient ember particles; automatically adapts to screen size.
+    (() => {
+      const canvas = document.querySelector("#embers");
+      const ctx = canvas.getContext("2d");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let w = 0, h = 0, particles = [];
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = window.innerWidth; h = window.innerHeight;
+        canvas.width = w * dpr; canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const count = Math.min(65, Math.floor(w / 18));
+        particles = Array.from({length:count}, () => ({
+          x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.7+.4,
+          speed:Math.random()*.35+.12, drift:(Math.random()-.5)*.25,
+          alpha:Math.random()*.55+.15
+        }));
+      }
+      function draw() {
+        ctx.clearRect(0,0,w,h);
+        for (const p of particles) {
+          ctx.beginPath(); ctx.fillStyle = "rgba(239,23,56,"+p.alpha+")";
+          ctx.shadowBlur = 9; ctx.shadowColor = "#ef1738";
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+          if (!reduceMotion) {
+            p.y -= p.speed; p.x += p.drift;
+            if (p.y < -5) {p.y=h+5;p.x=Math.random()*w;}
+            if (p.x < -5) p.x=w+5;
+            if (p.x > w+5) p.x=-5;
+          }
+        }
+        ctx.shadowBlur = 0;
+        if (!reduceMotion) requestAnimationFrame(draw);
+      }
+      window.addEventListener("resize", resize, {passive:true});
+      resize(); draw();
+    })();
   </script>
 </body>
 </html>
-
