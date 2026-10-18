@@ -25,16 +25,21 @@
     .awakening .enter-button{margin-top:18px;padding:13px 20px;font-weight:800;letter-spacing:.12em;background:#780b22;border-color:#ef3753}
     .controls{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
     .theme-select{max-width:170px;min-height:35px;padding:8px 10px;border:1px solid #54202e;border-radius:8px;background:#170b11;color:#f4e8ee;font:inherit;font-size:.68rem;letter-spacing:.04em}
-    body[data-theme="naruto"]{--bg:#090d18;--panel:#111827;--red:#ff7b18;--red2:#b94b0b;--muted:#a9b7cc;--line:#3d526e}
-    body[data-theme="naruto"] .animated-backdrop{background:radial-gradient(ellipse at 18% 35%,#173f9bb0 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#ff790f70 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#152f68a8 0%,transparent 45%),#080b13}
-    body[data-theme="naruto"] .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#2369ff45 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#ff7b1840 0%,transparent 36%)}
-    body[data-theme="naruto"] .animated-backdrop:after{background:radial-gradient(ellipse at 60% 25%,#ff8a142e 0%,transparent 32%),radial-gradient(ellipse at 35% 80%,#2369ff40 0%,transparent 38%)}
-    body[data-theme="naruto"] .brand span,body[data-theme="naruto"] .eyebrow,body[data-theme="naruto"] h2,body[data-theme="naruto"] .awakening-kicker,body[data-theme="naruto"] .symbol{color:#ff9b42}
-    body[data-theme="naruto"] .sigil,body[data-theme="naruto"] .card,body[data-theme="naruto"] .game-panel{border-color:#354e79}
-    body[data-theme="naruto"] .card:before,body[data-theme="naruto"] .rule{background:linear-gradient(90deg,transparent,#ff7b18,transparent)}
-    body[data-theme="naruto"] .status .dot,body[data-theme="naruto"] .dot{background:#ff7b18;box-shadow:0 0 12px #ff7b18}
-    body[data-theme="naruto"] button,body[data-theme="naruto"] .visit,body[data-theme="naruto"] .control-button,body[data-theme="naruto"] .theme-select{border-color:#3c5d92;background:#101c33}
-    body[data-theme="naruto"] button:hover,body[data-theme="naruto"] .visit:hover{background:#8b3c0c;border-color:#ff9b42}
+    /* Naruto: Kurama Chakra Mode — all flame-orange, no blue accents. */
+    body[data-theme="naruto"]{--bg:#140800;--panel:#211006;--red:#ff7817;--red2:#c94305;--muted:#e4b28a;--line:#7a3512;background:radial-gradient(ellipse at 50% -10%,#8a2c00 0,transparent 48%),var(--bg)}
+    body[data-theme="naruto"] .animated-backdrop{background:radial-gradient(ellipse at 18% 35%,#ff6a00a8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#ffb00070 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#c83c00a8 0%,transparent 45%),#140800}
+    body[data-theme="naruto"] .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#ff8a0045 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#ff4b0040 0%,transparent 36%)}
+    body[data-theme="naruto"] .animated-backdrop:after{background:radial-gradient(ellipse at 60% 25%,#ffc02e38 0%,transparent 32%),radial-gradient(ellipse at 35% 80%,#ff5a0045 0%,transparent 38%)}
+    body[data-theme="naruto"] .brand span,body[data-theme="naruto"] .eyebrow,body[data-theme="naruto"] h2,body[data-theme="naruto"] .awakening-kicker,body[data-theme="naruto"] .symbol{color:#ffb347}
+    body[data-theme="naruto"] .sigil,body[data-theme="naruto"] .card,body[data-theme="naruto"] .game-panel{border-color:#8f3c0b}
+    body[data-theme="naruto"] .card:before,body[data-theme="naruto"] .rule{background:linear-gradient(90deg,transparent,#ff7817,transparent)}
+    body[data-theme="naruto"] .status .dot,body[data-theme="naruto"] .dot{background:#ff7817;box-shadow:0 0 12px #ff7817}
+    body[data-theme="naruto"] button,body[data-theme="naruto"] .visit,body[data-theme="naruto"] .control-button,body[data-theme="naruto"] .theme-select{border-color:#8f3c0b;background:#351403}
+    body[data-theme="naruto"] button:hover,body[data-theme="naruto"] .visit:hover{background:#9e3500;border-color:#ffb347}
+    body[data-theme="naruto"] .sigil{background:#351403;box-shadow:0 0 28px #ff781755,inset 0 0 22px #ff781822}
+    body[data-theme="naruto"] .card{background:linear-gradient(140deg,#321708ed,#1b0b03f5 68%)}
+    body[data-theme="naruto"] .hunt-arena{border-color:#8f3c0b;background:radial-gradient(ellipse at 50% 50%,#772400 0%,#261003 58%,#140800 100%)}
+    body[data-theme="naruto"] .shadow-orb{border-color:#ffd18a;background:radial-gradient(circle at 35% 30%,#fff5d6,#ff9a24 22%,#db3d00 62%,#381000 75%);box-shadow:0 0 12px #ff7817,0 0 28px #ff4b00}
     body[data-theme="black-clover"]{--bg:#080507;--panel:#16090d;--red:#f01836;--red2:#8d071e;--muted:#bda5ad;--line:#51202c}
     body[data-theme="black-clover"] .animated-backdrop{background:radial-gradient(ellipse at 18% 35%,#70091ca8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#1b1116d9 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#3b0619a8 0%,transparent 45%),#080507}
     body[data-theme="black-clover"] .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#f0183645 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#080507aa 0%,transparent 36%)}
@@ -188,6 +193,7 @@
       };
       function applyTheme(key) {
         const theme = themes[key] || themes.shadow;
+        try { localStorage.setItem("identityHubTheme", key in themes ? key : "shadow"); } catch { /* storage may be disabled */ }
         document.body.dataset.theme = key;
         document.querySelector("h1").innerHTML = theme.title.replace(" ", "<br>");
         document.querySelector(".eyebrow").textContent = theme.kicker;
@@ -199,8 +205,14 @@
         document.querySelector("#enterHub").textContent = theme.enter;
         document.title = theme.title + " — Identity Hub";
       }
+      let savedTheme = "shadow";
+      try {
+        const stored = localStorage.getItem("identityHubTheme");
+        if (stored && Object.prototype.hasOwnProperty.call(themes, stored)) savedTheme = stored;
+      } catch { /* storage may be disabled */ }
+      picker.value = savedTheme;
       picker.addEventListener("change", () => applyTheme(picker.value));
-      applyTheme(picker.value);
+      applyTheme(savedTheme);
     })();
 
     // Awakening intro, particle toggle, and subtle desktop cursor effect.
