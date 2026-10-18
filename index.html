@@ -32,7 +32,6 @@
     @keyframes grimoire-right-open{from{transform:perspective(500px) rotateY(-82deg);opacity:.1}to{transform:perspective(500px) rotateY(0);opacity:1}}
     @keyframes grimoire-rise{from{opacity:0;transform:translateY(14px) scale(.94);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 
-    body[data-theme="naruto"] .cursor-aura{background:radial-gradient(circle,#ff8a004d 0%,#ff6a002b 24%,#ff4b0017 44%,#ff9b180a 60%,transparent 74%)}
     body[data-theme="black-clover"] .cursor-aura{background:radial-gradient(circle,#f0183640 0%,#f0183625 24%,#f0183612 44%,transparent 72%)}
     body.cursor-glow a:hover~.cursor-glow-dot,body.cursor-glow button:hover~.cursor-glow-dot{width:32px;height:32px;background:#ff17455c;box-shadow:0 0 15px #ff1745,0 0 35px #ef1738,0 0 60px #ef173899}
     .awakening{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at center,#3d0717 0%,#090609 68%);transition:opacity .7s,visibility .7s}
@@ -512,8 +511,16 @@
       function draw() {
         ctx.clearRect(0,0,w,h);
         for (const p of particles) {
-          ctx.beginPath(); ctx.fillStyle = "rgba(239,23,56,"+p.alpha+")";
-          ctx.shadowBlur = 9; ctx.shadowColor = "#ef1738";
+          const theme = document.body.dataset.theme || "shadow";
+          const particleColors = {
+            shadow: {fill:"rgba(239,23,56,"+p.alpha+")", glow:"#ef1738"},
+            naruto: {fill:"rgba(255,132,20,"+p.alpha+")", glow:"#ff7817"},
+            "black-clover": {fill:"rgba(240,24,54,"+p.alpha+")", glow:"#f01836"},
+            bleach: {fill:"rgba(101,200,255,"+p.alpha+")", glow:"#65c8ff"}
+          };
+          const particle = particleColors[theme] || particleColors.shadow;
+          ctx.beginPath(); ctx.fillStyle = particle.fill;
+          ctx.shadowBlur = 9; ctx.shadowColor = particle.glow;
           ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
           if (!reduceMotion) {
             p.y -= p.speed; p.x += p.drift;
