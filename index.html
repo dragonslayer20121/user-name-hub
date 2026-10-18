@@ -1,1 +1,240 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <title>Shadow Monarch | Identity Hub</title>
+  <style>
+    :root {
+      --bg: #080808;
+      --panel: #121010;
+      --red: #e50925;
+      --muted: #a9a0a3;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #fff;
+      background:
+        radial-gradient(ellipse at 50% 0%, #400811 0%, transparent 55%),
+        var(--bg);
+      font-family: system-ui, sans-serif;
+    }
+
+    .container {
+      width: min(900px, 92%);
+      margin: auto;
+      padding: 70px 0;
+    }
+
+    header { text-align: center; }
+
+    .sigil {
+      width: 76px;
+      height: 76px;
+      margin: auto auto 20px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--red);
+      border-radius: 22px;
+      color: var(--red);
+      font-size: 34px;
+      box-shadow: 0 0 32px #e5092530;
+      animation: pulse 3s infinite;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 7vw, 4rem);
+      letter-spacing: .12em;
+      text-shadow: 0 0 25px #e5092550;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      letter-spacing: .18em;
+      font-size: .8rem;
+    }
+
+    .line {
+      height: 2px;
+      width: 90px;
+      margin: 25px auto 45px;
+      background: var(--red);
+      box-shadow: 0 0 15px var(--red);
+    }
+
+    h2 {
+      font-size: .8rem;
+      letter-spacing: .2em;
+      color: #ef7785;
+      margin-bottom: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #191315, var(--panel));
+      border: 1px solid #382027;
+      border-radius: 14px;
+      padding: 22px;
+      transition: transform .25s, border-color .25s,
+                  box-shadow .25s;
+      animation: enter .6s both;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--red);
+      box-shadow: 0 10px 35px #e5092518;
+    }
+
+    .card h3 { margin: 0 0 8px; }
+
+    .username {
+      color: var(--muted);
+      font-size: .9rem;
+      overflow-wrap: anywhere;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button, .visit {
+      cursor: pointer;
+      color: white;
+      background: #291017;
+      border: 1px solid #712034;
+      border-radius: 7px;
+      padding: 9px 12px;
+      font: inherit;
+      font-size: .8rem;
+      text-decoration: none;
+    }
+
+    button:hover, .visit:hover {
+      background: #a30b27;
+    }
+
+    footer {
+      margin-top: 45px;
+      text-align: center;
+      color: #70676b;
+      font-size: .8rem;
+    }
+
+    @keyframes pulse {
+      50% { box-shadow: 0 0 45px #e5092550; }
+    }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div class="sigil" aria-hidden="true">♜</div>
+      <h1>SHADOW MONARCH</h1>
+      <p class="subtitle">GAMER · CREATOR · DEVELOPER</p>
+      <div class="line"></div>
+    </header>
+
+    <section>
+      <h2>◆ &nbsp; MY IDENTITIES</h2>
+      <div class="grid" id="profiles"></div>
+    </section>
+
+    <footer>
+      ONE IDENTITY. MANY WORLDS.<br>
+      <span style="color:#e50925">POWERED BY THE SHADOWS</span>
+    </footer>
+  </main>
+
+  <script>
+    // Replace these placeholders with your public profiles.
+    const profiles = [
+      { name: "GitHub", username: "YOUR_GITHUB_USERNAME",
+        url: "https://github.com/YOUR_GITHUB_USERNAME" },
+      { name: "Roblox", username: "YOUR_ROBLOX_USERNAME",
+        url: "https://www.roblox.com/users/profile" },
+      { name: "Discord", username: "YOUR_DISCORD_USERNAME",
+        url: "" },
+      { name: "YouTube", username: "YOUR_CHANNEL_NAME",
+        url: "" },
+      { name: "Steam", username: "YOUR_STEAM_USERNAME",
+        url: "" },
+      { name: "More coming soon", username: "Add your next identity",
+        url: "" }
+    ];
+
+    const grid = document.querySelector("#profiles");
+
+    profiles.forEach((profile, index) => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.style.animationDelay = `${index * 80}ms`;
+
+      const title = document.createElement("h3");
+      title.textContent = profile.name;
+
+      const username = document.createElement("div");
+      username.className = "username";
+      username.textContent = profile.username;
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const copy = document.createElement("button");
+      copy.textContent = "Copy username";
+      copy.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(profile.username);
+          copy.textContent = "Copied!";
+          setTimeout(() => copy.textContent = "Copy username", 1500);
+        } catch {
+          copy.textContent = "Copy unavailable";
+        }
+      });
+
+      actions.append(copy);
+
+      if (profile.url &&
+          !profile.url.includes("YOUR_GITHUB_USERNAME")) {
+        const visit = document.createElement("a");
+        visit.className = "visit";
+        visit.textContent = "Visit ↗";
+        visit.href = profile.url;
+        visit.target = "_blank";
+        visit.rel = "noopener noreferrer";
+        actions.append(visit);
+      }
+
+      card.append(title, username, actions);
+      grid.append(card);
+    });
+  </script>
+</body>
+</html>
+
