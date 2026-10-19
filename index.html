@@ -199,6 +199,19 @@
     .arena-message{position:absolute;inset:0;display:grid;place-items:center;padding:18px;text-align:center;color:#b9a8b2;font-size:.85rem;line-height:1.6;pointer-events:none}
     .shadow-orb{position:absolute;z-index:2;width:42px;height:42px;border-radius:50%;border:1px solid #ff7890;background:radial-gradient(circle at 35% 30%,#fff0f3,#ff3156 22%,#81051f 62%,#17050d 75%);box-shadow:0 0 12px #ff234f,0 0 28px #d10b3b;cursor:pointer;animation:orb-pulse .8s ease-in-out infinite alternate}
     .shadow-orb:focus-visible{outline:3px solid white;outline-offset:4px}
+    .hunter-progression{margin:18px 0;padding:17px;border:1px solid #ef173844;border-radius:12px;background:linear-gradient(130deg,#280812b8,#100b10)}
+    .hunter-progression-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+    .hunter-rank-label{font-size:.68rem;letter-spacing:.18em;color:#ff7184;font-weight:900}
+    .hunter-rank-title{margin:5px 0;font-size:1.25rem;font-weight:950;letter-spacing:.04em}
+    .hunter-level{font-size:.82rem;color:#e7dce1}
+    .hunter-xp-track{height:9px;margin:13px 0 7px;border-radius:99px;overflow:hidden;background:#ffffff12}
+    .hunter-xp-fill{height:100%;width:0;background:linear-gradient(90deg,#9d082b,#ff526c);box-shadow:0 0 12px #ef173866;transition:width .25s ease}
+    .hunter-xp-meta{display:flex;justify-content:space-between;gap:10px;color:#b9aab3;font-size:.72rem}
+    .hunter-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+    .hunter-badge{padding:6px 9px;border:1px solid #ffffff1a;border-radius:999px;background:#ffffff06;color:#d8cbd0;font-size:.7rem}
+    .hunter-badge.unlocked{border-color:#ef526c88;color:#ff9aaa;background:#ef173814}
+    .hunter-reward{margin-top:10px;color:#ff9aaa;font-size:.76rem;line-height:1.5}
+    .hunter-toast{margin:10px 0 0;color:#fff;font-size:.8rem;line-height:1.5}
     .leaderboard{margin-top:18px;padding-top:16px;border-top:1px solid #ffffff16}
     .leaderboard h3{margin:0 0 10px;color:#ff8090;font-size:.72rem;letter-spacing:.2em}
     .score-row{display:grid;grid-template-columns:35px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #ffffff0d;color:#cfc0c8;font-size:.82rem}
@@ -282,6 +295,14 @@
           <button id="startHunt" type="submit">START HUNT</button>
         </form>
         <div class="game-stats"><span>PLAYER: <strong id="activePlayer">—</strong></span><span>SCORE: <strong id="huntScore">0</strong></span><span>TIME: <strong id="huntTime">30</strong>s</span></div>
+        <div class="hunter-progression" id="hunterProgression" aria-label="Hunter progression">
+          <div class="hunter-progression-top"><div><div class="hunter-rank-label">HUNTER RANK</div><div class="hunter-rank-title" id="hunterTitle">E-RANK HUNTER</div><div class="hunter-level" id="hunterLevel">LEVEL 1 · 0 XP</div></div><div class="hunter-level" id="hunterLifetime">TOTAL XP: 0</div></div>
+          <div class="hunter-xp-track" role="progressbar" aria-label="Progress to next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="hunterXpTrack"><div class="hunter-xp-fill" id="hunterXpFill"></div></div>
+          <div class="hunter-xp-meta"><span id="hunterXpCurrent">0 / 100 XP</span><span id="hunterXpNext">100 XP to next level</span></div>
+          <div class="hunter-badges" id="hunterBadges"></div>
+          <div class="hunter-reward" id="hunterReward">Complete hunts to earn XP, unlock ranks, and collect achievements.</div>
+          <p class="hunter-toast" id="hunterToast" aria-live="polite"></p>
+        </div>
         <div class="hunt-arena" id="huntArena" aria-label="Shadow Hunt game area">
           <div class="arena-message" id="arenaMessage">Enter your name and press START HUNT to begin.</div>
         </div>
@@ -695,6 +716,60 @@
       const startButton = document.querySelector("#startHunt");
       const leaderboardRows = document.querySelector("#leaderboardRows");
       const storageKey = "shadowMonarchHuntLeaderboardV1";
+      const progressionKey = "shadowMonarchProgressionV1";
+      const rankTiers = [
+        {xp:0,title:"E-RANK HUNTER"},{xp:100,title:"D-RANK HUNTER"},
+        {xp:300,title:"C-RANK HUNTER"},{xp:650,title:"B-RANK HUNTER"},
+        {xp:1100,title:"A-RANK HUNTER"},{xp:1800,title:"S-RANK HUNTER"},
+        {xp:2800,title:"SHADOW COMMANDER"},{xp:4200,title:"SHADOW MONARCH"}
+      ];
+      const achievementDefs = [
+        {id:"first-hunt",label:"FIRST HUNT",test:p=>p.hunts>=1},
+        {id:"orb-hunter",label:"ORB HUNTER",test:p=>p.totalOrbs>=25},
+        {id:"centurion",label:"CENTURION",test:p=>p.totalOrbs>=100},
+        {id:"high-scorer",label:"HIGH SCORER",test:p=>p.bestScore>=25},
+        {id:"veteran",label:"VETERAN",test:p=>p.hunts>=10},
+        {id:"monarch",label:"MONARCH AWAKENED",test:p=>p.xp>=4200}
+      ];
+      function readProgress() {
+        const fallback={xp:0,hunts:0,totalOrbs:0,bestScore:0,unlocked:[]};
+        try {
+          const p=JSON.parse(localStorage.getItem(progressionKey)||"null");
+          if(!p||typeof p!=="object") return fallback;
+          return {xp:Math.max(0,Number(p.xp)||0),hunts:Math.max(0,Number(p.hunts)||0),totalOrbs:Math.max(0,Number(p.totalOrbs)||0),bestScore:Math.max(0,Number(p.bestScore)||0),unlocked:Array.isArray(p.unlocked)?p.unlocked.filter(x=>typeof x==="string"):[]};
+        } catch { return fallback; }
+      }
+      let progression=readProgress();
+      function currentRank(xp=progression.xp){let rank=rankTiers[0];for(const tier of rankTiers){if(xp>=tier.xp)rank=tier;}return rank;}
+      function levelInfo(xp=progression.xp){const level=Math.floor(xp/100)+1;return {level,within:xp%100};}
+      function renderProgression(){
+        const info=levelInfo(), rank=currentRank();
+        document.querySelector("#hunterTitle").textContent=rank.title;
+        document.querySelector("#hunterLevel").textContent="LEVEL "+info.level+" · "+progression.xp+" XP";
+        document.querySelector("#hunterLifetime").textContent="TOTAL XP: "+progression.xp;
+        document.querySelector("#hunterXpCurrent").textContent=info.within+" / 100 XP";
+        document.querySelector("#hunterXpNext").textContent=(100-info.within)+" XP to next level";
+        document.querySelector("#hunterXpFill").style.width=info.within+"%";
+        document.querySelector("#hunterXpTrack").setAttribute("aria-valuenow",String(info.within));
+        const badges=document.querySelector("#hunterBadges");badges.replaceChildren();
+        achievementDefs.forEach(def=>{const el=document.createElement("span");el.className="hunter-badge"+(progression.unlocked.includes(def.id)?" unlocked":"");el.textContent=(progression.unlocked.includes(def.id)?"★ ":"🔒 ")+def.label;el.title=def.label;badges.append(el);});
+        const next=rankTiers.find(t=>t.xp>progression.xp);
+        document.querySelector("#hunterReward").textContent=next?"Next title: "+next.title+" at "+next.xp+" total XP.":"MAX RANK REACHED — THE SHADOWS ANSWER TO YOU.";
+      }
+      function saveProgress(){try{localStorage.setItem(progressionKey,JSON.stringify(progression));return true;}catch{return false;}}
+      function awardHuntXP(points){
+        const oldRank=currentRank().title, oldUnlocked=new Set(progression.unlocked);
+        const earned=points*10+25;
+        progression.xp+=earned;progression.hunts++;progression.totalOrbs+=points;progression.bestScore=Math.max(progression.bestScore,points);
+        achievementDefs.forEach(def=>{if(def.test(progression)&&!progression.unlocked.includes(def.id))progression.unlocked.push(def.id);});
+        saveProgress();renderProgression();
+        const newRank=currentRank().title;
+        const gained=progression.unlocked.filter(id=>!oldUnlocked.has(id)).map(id=>achievementDefs.find(d=>d.id===id)?.label).filter(Boolean);
+        let note="+"+earned+" XP earned! ";
+        if(newRank!==oldRank)note+="RANK UP: "+newRank+"! ";
+        if(gained.length)note+="Achievement unlocked: "+gained.join(", ")+"!";
+        document.querySelector("#hunterToast").textContent=note;
+      }
       let score = 0, timeLeft = 30, timer = null, playing = false, player = "";
       function readScores() {
         try {
@@ -738,6 +813,7 @@
         startButton.disabled = false; startButton.textContent = "PLAY AGAIN";
         message.hidden = false;
         message.textContent = player + " scored " + score + " points! Enter a name and play again.";
+        awardHuntXP(score);
         try {
           const scores = readScores();
           scores.push({name:player,score});
@@ -766,6 +842,7 @@
         },1000);
       });
       renderLeaderboard();
+      renderProgression();
     })();
 
     // Lightweight ambient ember particles; automatically adapts to screen size.
