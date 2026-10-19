@@ -14,7 +14,7 @@
     a{color:inherit}
     body.cursor-glow,body.cursor-glow *{cursor:none!important}
     .cursor-glow-dot{position:fixed;left:0;top:0;width:18px;height:18px;border:2px solid #ff284d;border-radius:50%;pointer-events:none!important;user-select:none;z-index:2147483647;opacity:0;transform:translate3d(-100px,-100px,0);background:#ff17454d;box-shadow:0 0 12px #ff1745,0 0 28px #ef1738,0 0 55px #ef173899;transition:width .12s,height .12s,opacity .15s;will-change:transform}
-    .cursor-aura{position:fixed;left:0;top:0;width:190px;height:190px;border-radius:50%;pointer-events:none!important;user-select:none;z-index:2147483646;opacity:0;transform:translate3d(-100px,-100px,0);background:radial-gradient(circle,#ff17354d 0%,#ef17382b 24%,#ef173817 44%,#ef17380a 60%,transparent 74%);filter:blur(3px);will-change:transform}
+    .cursor-aura{display:none!important}
     /* Theme-specific custom cursor artifacts */
     body[data-theme="naruto"] .cursor-glow-dot{width:29px;height:29px;border:2px solid #ffb1b8;border-radius:50%;background:radial-gradient(circle,#090304 0 13%,#a50018 15% 48%,#f51d35 52% 68%,#4a0610 72% 78%,#ff7b88 82%,#25030a 88%);box-shadow:0 0 8px #ff253f,0 0 18px #ed102d,0 0 30px #a80020;transition:width .12s,height .12s,opacity .15s}
     body[data-theme="naruto"] .cursor-glow-dot:before{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;transform:translate(-50%,-50%);border-radius:50%;background:#050204;box-shadow:0 0 0 2px #ff9ba6}\n    body[data-theme="naruto"] .cursor-glow-dot:after{content:"";position:absolute;inset:3px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 13%,#170208 14% 20%,transparent 21% 46%,#170208 47% 53%,transparent 54% 79%,#170208 80% 86%,transparent 87%);animation:sharingan-spin 2.4s linear infinite}
@@ -81,8 +81,8 @@
 
     .control-button{font-size:.68rem;letter-spacing:.06em;color:#d9c8d0;background:#170b11;border-color:#54202e}
     @keyframes awaken-in{from{opacity:0;transform:translateY(18px) scale(.98);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
-    .animated-backdrop{position:fixed;inset:-12%;z-index:0;pointer-events:none;overflow:hidden;opacity:.8;background:radial-gradient(ellipse at 18% 35%,#310b75a8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#60051fa8 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#26085a8a 0%,transparent 45%),#080609;animation:backdrop-drift 24s ease-in-out infinite alternate;will-change:background-position}
-    .animated-backdrop:before,.animated-backdrop:after{content:"";position:absolute;inset:-15%;border-radius:45%;filter:blur(55px);will-change:transform,opacity}
+    .animated-backdrop{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.8;background:radial-gradient(ellipse at 18% 35%,#310b75a8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#60051fa8 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#26085a8a 0%,transparent 45%),#080609;animation:none;will-change:auto}
+    .animated-backdrop:before,.animated-backdrop:after{content:"";position:absolute;inset:0;border-radius:0;filter:none;will-change:auto;animation:none}
     .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#6b1cff45 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#ef17383b 0%,transparent 36%);animation:shadow-mist 19s ease-in-out infinite alternate}
     .animated-backdrop:after{background:radial-gradient(ellipse at 60% 25%,#d20b3b25 0%,transparent 32%),radial-gradient(ellipse at 35% 80%,#3211a840 0%,transparent 38%);animation:shadow-mist 27s ease-in-out infinite alternate-reverse}
     @keyframes backdrop-drift{0%{background-position:0% 0%,100% 0%,50% 100%}100%{background-position:18% 25%,80% 40%,35% 75%}}
@@ -90,7 +90,7 @@
 
     /* Extra drifting energy orbs layered over the existing animated mist. */
     .energy-orbs{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-    .energy-orb{position:absolute;width:clamp(90px,15vw,220px);aspect-ratio:1;border-radius:50%;filter:blur(2px);opacity:.16;background:radial-gradient(circle at 35% 35%,#ffb5c2 0%,var(--red) 10%,color-mix(in srgb,var(--red) 35%,transparent) 30%,transparent 70%);box-shadow:0 0 50px color-mix(in srgb,var(--red) 35%,transparent);animation:energy-drift 22s ease-in-out infinite alternate}
+    .energy-orb{position:absolute;width:clamp(90px,15vw,220px);aspect-ratio:1;border-radius:50%;filter:none;opacity:.08;background:radial-gradient(circle at 35% 35%,#ffb5c2 0%,var(--red) 10%,color-mix(in srgb,var(--red) 22%,transparent) 30%,transparent 70%);box-shadow:none;animation:none}
     .energy-orb:nth-child(1){left:4%;top:20%;animation-duration:24s}
     .energy-orb:nth-child(2){right:6%;top:48%;width:clamp(120px,19vw,280px);animation-duration:29s;animation-delay:-9s}
     .energy-orb:nth-child(3){left:42%;bottom:-8%;width:clamp(100px,13vw,190px);animation-duration:31s;animation-delay:-15s}
@@ -217,7 +217,14 @@
     .secret-toast.visible{opacity:1;transform:translate(-50%,0)}
     @media(prefers-reduced-motion:reduce){.sigil.secret-transforming,.sigil.secret-transforming:after{animation-duration:.01ms}}
 
-  </style>
+      /* Low-power rendering: keep the theme, drop costly perpetual effects. */
+    .animated-backdrop,.animated-backdrop:before,.animated-backdrop:after{animation:none!important;filter:none!important;will-change:auto!important}
+    .energy-orb{animation:none!important;filter:none!important;box-shadow:none!important;opacity:.06!important}
+    .cursor-aura{display:none!important}
+    .cursor-glow-dot{box-shadow:0 0 7px var(--red)!important;will-change:transform}
+    body[data-theme="naruto"] .cursor-glow-dot,body[data-theme="black-clover"] .cursor-glow-dot{box-shadow:0 0 7px var(--red)!important}
+    @media(max-width:900px){.animated-backdrop:before,.animated-backdrop:after{display:none}.energy-orbs{display:none}}
+</style>
 </head>
 <body>
   <div class="animated-backdrop" aria-hidden="true"></div>
@@ -762,11 +769,11 @@
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       let w = 0, h = 0, particles = [];
       function resize() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const dpr = Math.min(window.devicePixelRatio || 1, 1);
         w = window.innerWidth; h = window.innerHeight;
         canvas.width = w * dpr; canvas.height = h * dpr;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        const count = Math.min(48, Math.floor(w / 24));
+        const count = Math.min(18, Math.floor(w / 55));
         particles = Array.from({length:count}, () => ({
           x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.7+.4,
           speed:Math.random()*.35+.12, drift:(Math.random()-.5)*.25,
@@ -780,8 +787,11 @@
         bleach: {fill:"#65c8ff", glow:"#65c8ff"}
       };
       let activeTheme = "";
-      function draw() {
+      let lastDraw = 0;
+      function draw(timestamp = 0) {
         if (document.hidden) return;
+        if (timestamp - lastDraw < 33) { requestAnimationFrame(draw); return; }
+        lastDraw = timestamp;
         ctx.clearRect(0,0,w,h);
         const theme = document.body.dataset.theme || "shadow";
         const particle = particleColors[theme] || particleColors.shadow;
@@ -789,8 +799,7 @@
           ctx.beginPath();
           ctx.fillStyle = particle.fill;
           ctx.globalAlpha = p.alpha;
-          ctx.shadowBlur = 7;
-          ctx.shadowColor = particle.glow;
+          ctx.shadowBlur = 0;
           ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
           ctx.fill();
           if (!reduceMotion) {
