@@ -127,6 +127,19 @@
     .character-portal[data-character="black-clover"]:before{background:linear-gradient(90deg,rgba(5,4,7,.94),rgba(5,4,7,.58) 42%,rgba(5,4,7,.1)),linear-gradient(0deg,rgba(5,4,7,.9),transparent 60%)}
     .character-portal[data-character="bleach"]:before{background:linear-gradient(90deg,rgba(2,8,17,.93),rgba(2,8,17,.55) 42%,rgba(2,8,17,.08)),linear-gradient(0deg,rgba(2,8,17,.9),transparent 60%)}
     @media(max-width:600px){.character-portal .portal-art{object-position:62% center;opacity:.62}.character-portal:before{background:linear-gradient(90deg,rgba(2,2,7,.82),rgba(2,2,7,.25)),linear-gradient(0deg,rgba(2,2,7,.88),transparent 70%)}.portal-copy{padding:24px 8px}.portal-copy h2{font-size:clamp(3.1rem,16vw,6rem)}.portal-hint{bottom:16px}}
+    /* Keep the cinematic look without overworking low-power phones and laptops. */
+    @media(max-width:700px){
+      .animated-backdrop:before,.animated-backdrop:after{filter:blur(28px)}
+      .energy-orb{opacity:.09;filter:blur(1px)}
+      .cursor-aura{display:none}
+    }
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+      .animated-backdrop{animation:none!important}
+      .animated-backdrop:before,.animated-backdrop:after{animation:none!important}
+      .energy-orb{animation:none!important}
+    }
     @media(prefers-reduced-motion:reduce){.character-portal .portal-art,.character-portal:after,.logo-hint{animation:none!important}}
 
     #embers{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.65}
@@ -749,31 +762,37 @@
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       let w = 0, h = 0, particles = [];
       function resize() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         w = window.innerWidth; h = window.innerHeight;
         canvas.width = w * dpr; canvas.height = h * dpr;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        const count = Math.min(65, Math.floor(w / 18));
+        const count = Math.min(48, Math.floor(w / 24));
         particles = Array.from({length:count}, () => ({
           x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.7+.4,
           speed:Math.random()*.35+.12, drift:(Math.random()-.5)*.25,
           alpha:Math.random()*.55+.15
         }));
       }
+      const particleColors = {
+        shadow: {fill:"#ef1738", glow:"#ef1738"},
+        naruto: {fill:"#ff8414", glow:"#ff7817"},
+        "black-clover": {fill:"#f01836", glow:"#f01836"},
+        bleach: {fill:"#65c8ff", glow:"#65c8ff"}
+      };
+      let activeTheme = "";
       function draw() {
+        if (document.hidden) return;
         ctx.clearRect(0,0,w,h);
+        const theme = document.body.dataset.theme || "shadow";
+        const particle = particleColors[theme] || particleColors.shadow;
         for (const p of particles) {
-          const theme = document.body.dataset.theme || "shadow";
-          const particleColors = {
-            shadow: {fill:"rgba(239,23,56,"+p.alpha+")", glow:"#ef1738"},
-            naruto: {fill:"rgba(255,132,20,"+p.alpha+")", glow:"#ff7817"},
-            "black-clover": {fill:"rgba(240,24,54,"+p.alpha+")", glow:"#f01836"},
-            bleach: {fill:"rgba(101,200,255,"+p.alpha+")", glow:"#65c8ff"}
-          };
-          const particle = particleColors[theme] || particleColors.shadow;
-          ctx.beginPath(); ctx.fillStyle = particle.fill;
-          ctx.shadowBlur = 9; ctx.shadowColor = particle.glow;
-          ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+          ctx.beginPath();
+          ctx.fillStyle = particle.fill;
+          ctx.globalAlpha = p.alpha;
+          ctx.shadowBlur = 7;
+          ctx.shadowColor = particle.glow;
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fill();
           if (!reduceMotion) {
             p.y -= p.speed; p.x += p.drift;
             if (p.y < -5) {p.y=h+5;p.x=Math.random()*w;}
@@ -781,9 +800,13 @@
             if (p.x > w+5) p.x=-5;
           }
         }
+        ctx.globalAlpha = 1;
         ctx.shadowBlur = 0;
         if (!reduceMotion) requestAnimationFrame(draw);
       }
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && !reduceMotion) requestAnimationFrame(draw);
+      });
       window.addEventListener("resize", resize, {passive:true});
       resize(); draw();
     })();
