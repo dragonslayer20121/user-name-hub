@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080609">
+<meta name="description" content="Tune Shadow Monarch Hub graphics and performance settings.">
+<title>Graphics & Performance — Shadow Monarch Hub</title>
+<style>
+:root{color-scheme:dark;--bg:#080609;--panel:#120d12;--red:#ef1738;--muted:#b9aab3;--line:#38202a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#4b0718 0,transparent 45%),var(--bg);color:#f8f3f5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}a{color:inherit}
+nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px clamp(18px,5vw,64px);border-bottom:1px solid #ffffff12;background:#080609d9}.brand{font-size:.82rem;font-weight:950;letter-spacing:.13em;text-decoration:none}.brand span{color:var(--red)}.back,.button{display:inline-flex;align-items:center;justify-content:center;padding:11px 14px;border:1px solid var(--line);border-radius:9px;background:#170b11;color:#f8f3f5;text-decoration:none;font:inherit;font-size:.78rem;font-weight:850;cursor:pointer}.back:hover,.button:hover{border-color:var(--red)}
+main{width:min(850px,calc(100% - 32px));margin:auto;padding:clamp(35px,7vw,76px) 0 60px}.eyebrow{font-size:.7rem;font-weight:900;letter-spacing:.28em;color:#ff7184}h1{margin:13px 0;font-size:clamp(2.4rem,8vw,5rem);line-height:.98;letter-spacing:-.06em;text-transform:uppercase} .intro{max-width:650px;color:var(--muted);line-height:1.8}.panel{margin-top:22px;padding:clamp(18px,4vw,28px);border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#1a0c13eF,#0e0a0ef5);box-shadow:0 14px 35px #0002}.panel h2{margin:0 0 8px;font-size:1.1rem}.help{margin:0 0 18px;color:var(--muted);font-size:.9rem;line-height:1.7}.options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.choice{min-height:92px;padding:14px;text-align:left;border:1px solid #44202b;border-radius:11px;background:#0e090d;color:#f8f3f5;cursor:pointer;font:inherit}.choice strong{display:block;margin-bottom:6px;color:#ff7184}.choice span{font-size:.8rem;line-height:1.5;color:#b9aab3}.choice[aria-pressed=true]{border-color:var(--red);background:#ef173815;box-shadow:inset 0 0 0 1px #ef173855}.switches{display:grid;gap:0}.switchrow{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px 0;border-top:1px solid #ffffff12}.switchrow:first-child{border-top:0}.switchrow strong{display:block;font-size:.92rem}.switchrow small{display:block;margin-top:4px;color:var(--muted);line-height:1.5}.toggle{width:48px;height:28px;flex:none;appearance:none;border:1px solid #68404b;border-radius:999px;background:#27141b;cursor:pointer;position:relative}.toggle:before{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#b9aab3;transition:transform .16s,background .16s}.toggle:checked{background:#7e1028;border-color:#ef1738}.toggle:checked:before{transform:translateX(20px);background:white}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.button.primary{background:#780b22;border-color:#ef3753}.status{min-height:1.4em;margin:15px 0 0;color:#ff9aaa;font-size:.85rem}.tip{margin-top:20px;padding:16px 18px;border-left:3px solid var(--red);background:#ef17380c;color:#d9cbd1;line-height:1.7;font-size:.9rem}footer{text-align:center;padding:24px;color:#8f818a;font-size:.74rem;border-top:1px solid #ffffff12}
+@media(max-width:600px){nav{align-items:flex-start;flex-direction:column}.options{grid-template-columns:1fr}.choice{min-height:0}.switchrow{align-items:flex-start}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav aria-label="Main navigation"><a class="brand" href="index.html">DRAGON<span>SLAYER</span> // HUB</a><a class="back" href="index.html">← BACK TO HUB</a></nav>
+<main>
+<div class="eyebrow">SYSTEM MENU // HUNTER CONFIGURATION</div>
+<h1>Graphics &<br>performance</h1>
+<p class="intro">Tune the atmosphere to your machine. These settings are saved in this browser and are applied when you return to the main hub. Low mode cuts decorative motion and particles; it does not change the Shadow Hunt rules.</p>
+<section class="panel" aria-labelledby="qualityTitle">
+<h2 id="qualityTitle">Graphics preset</h2><p class="help">Pick the balance between visual effects and smoothness.</p>
+<div class="options" role="group" aria-label="Graphics preset">
+<button class="choice" type="button" data-quality="low" aria-pressed="false"><strong>LOW POWER</strong><span>Static background, fewer effects, best for slower devices.</span></button>
+<button class="choice" type="button" data-quality="balanced" aria-pressed="true"><strong>BALANCED</strong><span>Shadow atmosphere with lightweight effects.</span></button>
+<button class="choice" type="button" data-quality="high" aria-pressed="false"><strong>HIGH VISUALS</strong><span>More background movement and decorative glow.</span></button>
+</div>
+</section>
+<section class="panel" aria-labelledby="customTitle">
+<h2 id="customTitle">Custom controls</h2><p class="help">Fine-tune individual effects. Your choices override the matching preset option.</p>
+<div class="switches">
+<label class="switchrow"><span><strong>Ember particles</strong><small>Floating sparks on the background.</small></span><input class="toggle" id="embers" type="checkbox" checked></label>
+<label class="switchrow"><span><strong>Animated mist</strong><small>Slow-moving background colour layers.</small></span><input class="toggle" id="mist" type="checkbox" checked></label>
+<label class="switchrow"><span><strong>Scanline overlay</strong><small>Subtle screen texture.</small></span><input class="toggle" id="scanlines" type="checkbox" checked></label>
+<label class="switchrow"><span><strong>Reduced motion</strong><small>Stops decorative movement for a calmer experience.</small></span><input class="toggle" id="reducedMotion" type="checkbox"></label>
+</div>
+<div class="actions"><button class="button primary" id="save" type="button">SAVE SETTINGS</button><button class="button" id="reset" type="button">RESET TO BALANCED</button></div>
+<p class="status" id="status" role="status" aria-live="polite"></p>
+</section>
+<div class="tip"><strong>Recommended for a slower laptop:</strong> LOW POWER + Reduced motion. If you prefer the animated look, try BALANCED first. These controls reduce decorative effects but cannot guarantee a specific FPS on every device.</div>
+</main>
+<footer>SHADOW MONARCH HUB · CONFIGURE YOUR WORLD</footer>
+<script>
+(() => {
+ const key="shadowHubSettingsV1";
+ const defaults={quality:"balanced",embers:true,mist:true,scanlines:true,reducedMotion:false};
+ const $=id=>document.getElementById(id);
+ let settings={...defaults};
+ try { const saved=JSON.parse(localStorage.getItem(key)||"null"); if(saved&&typeof saved==="object") settings={...defaults,...saved}; } catch {}
+ function render(){
+   document.querySelectorAll("[data-quality]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.quality===settings.quality)));
+   $("embers").checked=!!settings.embers;$("mist").checked=!!settings.mist;$("scanlines").checked=!!settings.scanlines;$("reducedMotion").checked=!!settings.reducedMotion;
+ }
+ document.querySelectorAll("[data-quality]").forEach(b=>b.addEventListener("click",()=>{
+   settings.quality=b.dataset.quality;
+   if(settings.quality==="low"){settings.mist=false;settings.embers=false;}
+   if(settings.quality==="balanced"){settings.mist=true;settings.embers=true;}
+   if(settings.quality==="high"){settings.mist=true;settings.embers=true;}
+   render();$("status").textContent="Preset selected. Save to apply it on the main hub.";
+ }));
+ $("embers").addEventListener("change",e=>settings.embers=e.target.checked);
+ $("mist").addEventListener("change",e=>settings.mist=e.target.checked);
+ $("scanlines").addEventListener("change",e=>settings.scanlines=e.target.checked);
+ $("reducedMotion").addEventListener("change",e=>settings.reducedMotion=e.target.checked);
+ $("save").addEventListener("click",()=>{
+   try{localStorage.setItem(key,JSON.stringify(settings));$("status").textContent="Settings saved. Open the hub to apply them."; }
+   catch{$("status").textContent="This browser blocked local storage, so settings could not be saved.";}
+ });
+ $("reset").addEventListener("click",()=>{settings={...defaults};render();try{localStorage.setItem(key,JSON.stringify(settings));$("status").textContent="Balanced defaults restored."; }catch{$("status").textContent="Defaults selected. Browser storage is unavailable."; }});
+ render();
+})();
+</script>
+</body></html>
