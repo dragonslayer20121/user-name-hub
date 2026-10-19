@@ -740,17 +740,20 @@
         } catch { return fallback; }
       }
       let progression=readProgress();
-      function currentRank(xp=progression.xp){let rank=rankTiers[0];for(const tier of rankTiers){if(xp>=tier.xp)rank=tier;}return rank;}
+      // Owner-only cosmetic rank: matching a public nickname is not secure authentication.
+      const ownerAliases = new Set(["dragonslayer20121","dragonslayer"]);
+      let ownerRankActive = false;
+      function currentRank(xp=progression.xp){let rank=rankTiers[0];for(const tier of rankTiers){if(xp>=tier.xp)rank=tier;}return ownerRankActive?{xp:0,title:"ETERNAL SHADOW SOVEREIGN"}:rank;}
       function levelInfo(xp=progression.xp){const level=Math.floor(xp/100)+1;return {level,within:xp%100};}
       function renderProgression(){
         const info=levelInfo(), rank=currentRank();
         document.querySelector("#hunterTitle").textContent=rank.title;
-        document.querySelector("#hunterLevel").textContent="LEVEL "+info.level+" · "+progression.xp+" XP";
-        document.querySelector("#hunterLifetime").textContent="TOTAL XP: "+progression.xp;
-        document.querySelector("#hunterXpCurrent").textContent=info.within+" / 100 XP";
-        document.querySelector("#hunterXpNext").textContent=(100-info.within)+" XP to next level";
-        document.querySelector("#hunterXpFill").style.width=info.within+"%";
-        document.querySelector("#hunterXpTrack").setAttribute("aria-valuenow",String(info.within));
+        document.querySelector("#hunterLevel").textContent=ownerRankActive?"LEVEL 999 · AWAKENED":("LEVEL "+info.level+" · "+progression.xp+" XP");
+        document.querySelector("#hunterLifetime").textContent=ownerRankActive?"OWNER STATUS · UNIQUE":("TOTAL XP: "+progression.xp);
+        document.querySelector("#hunterXpCurrent").textContent=ownerRankActive?"ETERNAL RANK":(info.within+" / 100 XP");
+        document.querySelector("#hunterXpNext").textContent=ownerRankActive?"No further rank exists":((100-info.within)+" XP to next level");
+        document.querySelector("#hunterXpFill").style.width=ownerRankActive?"100%":(info.within+"%");
+        document.querySelector("#hunterXpTrack").setAttribute("aria-valuenow",ownerRankActive?"100":String(info.within));
         const badges=document.querySelector("#hunterBadges");badges.replaceChildren();
         achievementDefs.forEach(def=>{const el=document.createElement("span");el.className="hunter-badge"+(progression.unlocked.includes(def.id)?" unlocked":"");el.textContent=(progression.unlocked.includes(def.id)?"★ ":"🔒 ")+def.label;el.title=def.label;badges.append(el);});
         const next=rankTiers.find(t=>t.xp>progression.xp);
@@ -830,6 +833,9 @@
         if (!entered) { nameInput.focus(); return; }
         if (playing) return;
         player = entered.slice(0,18);
+        ownerRankActive = ownerAliases.has(player.toLowerCase());
+        renderProgression();
+        document.querySelector("#hunterToast").textContent = ownerRankActive ? "OWNER RECOGNIZED — ETERNAL SHADOW SOVEREIGN STATUS ACTIVE." : "";
         score = 0; timeLeft = 30; playing = true;
         scoreText.textContent = "0"; timeText.textContent = "30";
         activePlayer.textContent = player;
