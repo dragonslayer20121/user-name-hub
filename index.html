@@ -230,7 +230,7 @@
   <div class="animated-backdrop" aria-hidden="true"></div>
 
   <section class="character-portal" id="characterPortal" aria-hidden="true" aria-label="Anime character portal">
-    <img class="portal-art" id="portalArt" alt="" src="https://channeln.gcdn.netmarble.com/channeln/Upload/0d74604c-3e97-4134-a06c-d66737f51aff.jpg">
+    <img class="portal-art" id="portalArt" alt="" decoding="async" fetchpriority="low">
     <div class="portal-copy">
       <div class="portal-kicker" id="portalKicker">SYSTEM // SHADOW AWAKENING</div>
       <h2 id="portalTitle">SHADOW<br>MONARCH</h2>
@@ -297,7 +297,7 @@
         "black-clover": {title:"WIZARD KING", kicker:"SURPASS YOUR LIMITS", tagline:"No magic? Then I'll surpass every limit with my own hands.", sigil:"♣", intro:"RISE,<br>WIZARD KING", introKicker:"A GRIMOIRE HAS CHOSEN YOU", introText:"Even without magic, your will can shake the kingdom.", enter:"OPEN THE GRIMOIRE ↗"},
         "bleach": {title:"SOUL REAPER", kicker:"THE BLADE THAT CUTS DESTINY", tagline:"If fate stands in my way, then I'll cut through fate.", sigil:"卍", intro:"AWAKEN,<br>SOUL REAPER", introKicker:"YOUR SPIRITUAL PRESSURE RISES", introText:"Draw your blade. The boundary between worlds is waiting.", enter:"CROSS THE GATE ↗"}
       };
-      function applyTheme(key) {
+      function applyTheme(key, animate = true) {
         const theme = themes[key] || themes.shadow;
         try { localStorage.setItem("identityHubTheme", key in themes ? key : "shadow"); } catch { /* storage may be disabled */ }
         document.body.dataset.theme = key;
@@ -312,7 +312,7 @@
         document.title = theme.title + " — Identity Hub";
         const intro = document.querySelector("#awakening");
         intro.classList.remove("grimoire-awakening");
-        if (key === "black-clover") {
+        if (key === "black-clover" && animate) {
           intro.classList.remove("hidden");
           void intro.offsetWidth;
           intro.classList.add("grimoire-awakening");
@@ -330,7 +330,7 @@
       } catch { /* storage may be disabled */ }
       picker.value = savedTheme;
       picker.addEventListener("change", () => applyTheme(picker.value));
-      applyTheme(savedTheme);
+      applyTheme(savedTheme, false);
     })();
 
     // Awakening intro, particle toggle, and subtle desktop cursor effect.
