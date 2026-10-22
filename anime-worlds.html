@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#09070b">
+<title>Anime Worlds — DRAGONSLAYER // HUB</title>
+<style>
+:root{color-scheme:dark;--red:#ef1738;--bg:#09070b;--panel:#100c12;--muted:#b9aeb8;--line:#ffffff18}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#36101b 0,transparent 48%),var(--bg);color:#fff;font-family:Inter,Segoe UI,Arial,sans-serif}
+a{color:inherit}
+.wrap{width:min(1080px,calc(100% - 32px));margin:auto;padding:24px 0 50px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 0 22px;border-bottom:1px solid var(--line)}
+.brand{font-size:.95rem;font-weight:950;letter-spacing:.11em;text-decoration:none}.brand span{color:var(--red)}
+.navlinks{display:flex;gap:14px;flex-wrap:wrap}.navlinks a{font-size:.72rem;letter-spacing:.1em;text-decoration:none;color:var(--muted)}.navlinks a:hover{color:var(--red)}
+header{text-align:center;padding:54px 0 30px}
+.eyebrow{font-size:.72rem;font-weight:850;letter-spacing:.24em;color:var(--red)}
+h1{font-size:clamp(2.2rem,7vw,4.5rem);line-height:.98;letter-spacing:.025em;margin:14px 0}
+.subtitle{max-width:650px;margin:16px auto 0;color:var(--muted);line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.world{--accent:#ef1738;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;min-height:240px;padding:24px;border:1px solid color-mix(in srgb,var(--accent) 42%,transparent);border-radius:15px;background:linear-gradient(140deg,color-mix(in srgb,var(--accent) 10%,#100c12),#100c12 66%);box-shadow:inset 0 0 26px #ffffff03;transition:transform .2s,border-color .2s,box-shadow .2s}
+.world:hover,.world.active{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 0 26px color-mix(in srgb,var(--accent) 13%,transparent)}
+.world:before{content:"";position:absolute;right:-28px;top:-44px;width:145px;height:145px;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:50%;box-shadow:0 0 0 17px color-mix(in srgb,var(--accent) 4%,transparent),0 0 0 36px color-mix(in srgb,var(--accent) 3%,transparent);pointer-events:none}
+.world-code{font-size:.67rem;font-weight:900;letter-spacing:.2em;color:var(--accent)}
+.world h2{position:relative;margin:16px 0 9px;font-size:clamp(1.3rem,3.5vw,2rem);letter-spacing:.04em}
+.world p{position:relative;color:var(--muted);font-size:.88rem;line-height:1.65;margin:0 0 22px;max-width:460px}
+.choose{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 14px;border:1px solid color-mix(in srgb,var(--accent) 65%,transparent);border-radius:8px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:#fff;font-weight:900;font-size:.72rem;letter-spacing:.09em;cursor:pointer}
+.choose:hover{background:color-mix(in srgb,var(--accent) 22%,transparent)}
+#shadow{--accent:#ef1738}#naruto{--accent:#ff8414}#black-clover{--accent:#f01836}#bleach{--accent:#65c8ff}
+#message{min-height:24px;text-align:center;color:var(--muted);font-size:.82rem;margin:22px 0 0}
+footer{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);text-align:center;color:#786d74;font-size:.72rem;letter-spacing:.1em;line-height:2}footer strong{color:var(--red)}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.world{min-height:215px}header{padding-top:38px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+<a class="brand" href="index.html">DRAGON<span>SLAYER</span> // HUB</a>
+<div class="navlinks"><a href="index.html">MAIN HUB ↗</a><a href="how-to.html">HOW TO USE ↗</a><a href="settings.html">GRAPHICS & SETTINGS ↗</a></div>
+</nav>
+<header>
+<div class="eyebrow">MULTIVERSE SELECT // 004 WORLDS</div>
+<h1>CHOOSE YOUR<br>ANIME WORLD</h1>
+<p class="subtitle">The anime themes now have their own page. Choose a world to set its theme for the main Hub, then return to the shadows.</p>
+</header>
+<main class="grid" aria-label="Available anime worlds">
+<article class="world" id="shadow">
+<div class="world-code">WORLD 01 // DEFAULT</div>
+<h2>SHADOW MONARCH</h2>
+<p>Black and blood-red energy. The original DRAGONSLAYER // HUB identity.</p>
+<button class="choose" type="button" data-theme="shadow">SELECT WORLD ↗</button>
+</article>
+<article class="world" id="naruto">
+<div class="world-code">WORLD 02 // WILL OF FIRE</div>
+<h2>NARUTO — SHINOBI LEGACY</h2>
+<p>Kurama-orange energy and the spirit of a shinobi who never gives up.</p>
+<button class="choose" type="button" data-theme="naruto">SELECT WORLD ↗</button>
+</article>
+<article class="world" id="black-clover">
+<div class="world-code">WORLD 03 // ANTI-MAGIC</div>
+<h2>BLACK CLOVER — WIZARD KING</h2>
+<p>Dark anti-magic energy with a fierce red edge. Surpass your limits.</p>
+<button class="choose" type="button" data-theme="black-clover">SELECT WORLD ↗</button>
+</article>
+<article class="world" id="bleach">
+<div class="world-code">WORLD 04 // SOUL REAPER</div>
+<h2>BLEACH — SOUL REAPER</h2>
+<p>Cold blue spiritual pressure and a blade that cuts through destiny.</p>
+<button class="choose" type="button" data-theme="bleach">SELECT WORLD ↗</button>
+</article>
+</main>
+<p id="message" aria-live="polite">CURRENT WORLD: checking saved theme…</p>
+<footer>ONE IDENTITY. MANY WORLDS.<br><strong>POWERED BY THE SHADOWS</strong><br>ANIME WORLDS // THE MULTIVERSE IS YOURS</footer>
+</div>
+<script>
+(() => {
+  const valid = ["shadow","naruto","black-clover","bleach"];
+  let current = "shadow";
+  try {
+    const saved = localStorage.getItem("identityHubTheme");
+    if (valid.includes(saved)) current = saved;
+  } catch {}
+  const message = document.querySelector("#message");
+  const paint = () => {
+    document.querySelectorAll(".world").forEach(card => {
+      const active = card.id === current;
+      card.classList.toggle("active", active);
+      const button = card.querySelector("button");
+      button.textContent = active ? "CURRENT WORLD ✓" : "SELECT WORLD ↗";
+    });
+    message.textContent = "CURRENT WORLD: " + current.toUpperCase().replace("-"," ") + " // SELECT A WORLD TO SWITCH";
+  };
+  document.querySelectorAll("[data-theme]").forEach(button => {
+    button.addEventListener("click", () => {
+      current = button.dataset.theme;
+      try { localStorage.setItem("identityHubTheme", current); } catch {}
+      paint();
+      message.textContent = "WORLD SET: " + current.toUpperCase().replace("-"," ") + " // RETURNING TO THE HUB…";
+      window.setTimeout(() => { window.location.href = "index.html"; }, 450);
+    });
+  });
+  paint();
+})();
+</script>
+</body>
+</html>
