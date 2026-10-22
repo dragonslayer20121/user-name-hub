@@ -276,7 +276,23 @@
     body.easter-flash header .sigil{animation:easter-flash .75s ease}
     @media(prefers-reduced-motion:reduce){.update-drop:before{animation:none}.easter-toast{transition:none}body.easter-flash header .sigil{animation:none}}
 
-</style>
+
+    /* Low-power mode: stop decorative motion that adds work without affecting functionality. */
+    body[data-quality="low"] .animated-backdrop:before,
+    body[data-quality="low"] .animated-backdrop:after,
+    body[data-quality="low"] .logo-hint,
+    body[data-quality="low"] .awakening-inner,
+    body[data-quality="low"] .cursor-glow-dot:after { animation:none!important; }
+    body[data-quality="low"] .energy-orbs { display:none!important; }
+    body[data-quality="low"] .animated-backdrop { opacity:.55; }
+    body.user-reduced-motion .animated-backdrop:before,
+    body.user-reduced-motion .animated-backdrop:after,
+    body.user-reduced-motion .energy-orb,
+    body.user-reduced-motion .logo-hint,
+    body.user-reduced-motion .cursor-glow-dot:after,
+    body.user-reduced-motion .awakening-inner { animation:none!important; }
+    body.user-reduced-motion *, body.user-reduced-motion *:before, body.user-reduced-motion *:after { scroll-behavior:auto!important; transition-duration:.01ms!important; }
+  </style>
 </head>
 <body>
   <div class="animated-backdrop" aria-hidden="true"></div>
@@ -952,10 +968,10 @@
         }
         ctx.globalAlpha = 1;
         ctx.shadowBlur = 0;
-        if (!reduceMotion && !userReducedMotion) requestAnimationFrame(draw);
+        if (!reduceMotion && !userReducedMotion && quality !== "low") requestAnimationFrame(draw);
       }
       document.addEventListener("visibilitychange", () => {
-        if (!document.hidden && !reduceMotion && !userReducedMotion) requestAnimationFrame(draw);
+        if (!document.hidden && !reduceMotion && !userReducedMotion && quality !== "low") requestAnimationFrame(draw);
       });
       window.addEventListener("resize", resize, {passive:true});
       resize(); draw();
