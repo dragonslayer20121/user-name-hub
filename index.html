@@ -69,6 +69,20 @@
     body[data-theme="black-clover"] button,body[data-theme="black-clover"] .visit,body[data-theme="black-clover"] .control-button,body[data-theme="black-clover"] .theme-select{border-color:#59202d;background:#1d0a10}
     body[data-theme="black-clover"] button:hover,body[data-theme="black-clover"] .visit:hover{background:#760d24;border-color:#ff526c}
     body[data-theme="bleach"]{--bg:#080b13;--panel:#101521;--red:#65c8ff;--red2:#1b6ca7;--muted:#aab7cc;--line:#2c4565}
+    body[data-theme="tensura"]{--bg:#061311;--panel:#0b201e;--red:#58e5d0;--red2:#138c85;--muted:#a8d8d2;--line:#1d655f}
+    body[data-theme="tensura"] .animated-backdrop{background:radial-gradient(ellipse at 18% 35%,#087d78a8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#52f0d538 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#135b9ca8 0%,transparent 45%),#061311}
+    body[data-theme="tensura"] .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#58e5d045 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#1d9fba40 0%,transparent 36%)}
+    body[data-theme="tensura"] .animated-backdrop:after{background:radial-gradient(ellipse at 60% 25%,#b0fff028 0%,transparent 32%),radial-gradient(ellipse at 35% 80%,#267ed040 0%,transparent 38%)}
+    body[data-theme="tensura"] .brand span,body[data-theme="tensura"] .eyebrow,body[data-theme="tensura"] h2,body[data-theme="tensura"] .awakening-kicker,body[data-theme="tensura"] .symbol{color:#8ffff0}
+    body[data-theme="tensura"] .sigil,body[data-theme="tensura"] .card,body[data-theme="tensura"] .game-panel{border-color:#1d655f}
+    body[data-theme="tensura"] .card:before,body[data-theme="tensura"] .rule{background:linear-gradient(90deg,transparent,#58e5d0,transparent)}
+    body[data-theme="tensura"] .status .dot,body[data-theme="tensura"] .dot{background:#58e5d0;box-shadow:0 0 12px #58e5d0}
+    body[data-theme="tensura"] button,body[data-theme="tensura"] .visit,body[data-theme="tensura"] .control-button,body[data-theme="tensura"] .theme-select{border-color:#1d655f;background:#0b2421}
+    body[data-theme="tensura"] button:hover,body[data-theme="tensura"] .visit:hover{background:#125c54;border-color:#8ffff0}
+    body[data-theme="tensura"] .sigil{background:#0b2421;box-shadow:0 0 28px #58e5d055,inset 0 0 22px #58e5d022}
+    body[data-theme="tensura"] .card{background:linear-gradient(140deg,#10342eed,#081b19f5 68%)}
+    body[data-theme="tensura"] .hunt-arena{border-color:#1d655f;background:radial-gradient(ellipse at 50% 50%,#10554e 0%,#0a2624 58%,#061311 100%)}
+    body[data-theme="tensura"] .shadow-orb{border-color:#b0fff0;background:radial-gradient(circle at 35% 30%,#fff,#58e5d0 22%,#167dba 62%,#063b3a 75%);box-shadow:0 0 12px #58e5d0,0 0 28px #167dba44}
     body[data-theme="bleach"] .animated-backdrop{background:radial-gradient(ellipse at 18% 35%,#123b80a8 0%,transparent 38%),radial-gradient(ellipse at 78% 28%,#e9f5ff38 0%,transparent 42%),radial-gradient(ellipse at 55% 85%,#2b155ca8 0%,transparent 45%),#070a12}
     body[data-theme="bleach"] .animated-backdrop:before{background:radial-gradient(ellipse at 25% 45%,#49b9ff45 0%,transparent 34%),radial-gradient(ellipse at 75% 55%,#c9eaff30 0%,transparent 36%)}
     body[data-theme="bleach"] .animated-backdrop:after{background:radial-gradient(ellipse at 60% 25%,#a9dfff28 0%,transparent 32%),radial-gradient(ellipse at 35% 80%,#4631b340 0%,transparent 38%)}
@@ -348,7 +362,8 @@
         "shadow": {title:"SHADOW MONARCH", kicker:"THE SHADOWS ARE WAITING", tagline:"You can run from the shadows. They still answer to me.", sigil:"♜", intro:"ARISE,<br>SHADOW MONARCH", introKicker:"A NEW POWER HAS AWAKENED", introText:"The portal is open. Your identities await beyond the shadows.", enter:"ENTER THE SHADOWS ↗"},
         "naruto": {title:"SHINOBI LEGACY", kicker:"THE WILL OF FIRE NEVER FADES", tagline:"A shinobi's true strength is the will to never give up.", sigil:"卍", intro:"AWAKEN,<br>SHINOBI", introKicker:"THE WILL OF FIRE AWAKENS", introText:"Your ninja way begins here. Believe it.", enter:"ENTER THE SHINOBI WORLD ↗"},
         "black-clover": {title:"WIZARD KING", kicker:"SURPASS YOUR LIMITS", tagline:"No magic? Then I'll surpass every limit with my own hands.", sigil:"♣", intro:"RISE,<br>WIZARD KING", introKicker:"A GRIMOIRE HAS CHOSEN YOU", introText:"Even without magic, your will can shake the kingdom.", enter:"OPEN THE GRIMOIRE ↗"},
-        "bleach": {title:"SOUL REAPER", kicker:"THE BLADE THAT CUTS DESTINY", tagline:"If fate stands in my way, then I'll cut through fate.", sigil:"卍", intro:"AWAKEN,<br>SOUL REAPER", introKicker:"YOUR SPIRITUAL PRESSURE RISES", introText:"Draw your blade. The boundary between worlds is waiting.", enter:"CROSS THE GATE ↗"}
+        "bleach": {title:"SOUL REAPER", kicker:"THE BLADE THAT CUTS DESTINY", tagline:"If fate stands in my way, then I'll cut through fate.", sigil:"卍", intro:"AWAKEN,<br>SOUL REAPER", introKicker:"YOUR SPIRITUAL PRESSURE RISES", introText:"Draw your blade. The boundary between worlds is waiting.", enter:"CROSS THE GATE ↗"},
+        "tensura": {title:"RIMURU TEMPEST", kicker:"THE GREAT DEMON LORD AWAKENS", tagline:"A new world. A new nation. Unlimited evolution.", sigil:"◉", intro:"AWAKEN,<br>RIMURU", introKicker:"THE SLIME EVOLVES", introText:"Gather your allies and build a nation beyond expectations.", enter:"ENTER TEMPEST ↗"}
       };
       function applyTheme(key, animate = true) {
         const theme = themes[key] || themes.shadow;
@@ -600,6 +615,10 @@
         bleach: {
           name:"ICHIGO<br>KUROSAKI", kicker:"SOUL SOCIETY // BANKAI", description:"The blade that cuts through destiny.",
           image:"https://bleach-anime.com/en/assets/img/character/thumb_01.jpg"
+        },
+        tensura: {
+          name:"RIMURU<br>TEMPEST", kicker:"TEMPEST NATION // EVOLUTION", description:"The slime who rises to become a Demon Lord.",
+          image:"https://www.ten-sura.com/assets/images/character/rimuru.png"
         }
       };
       let opened = false;
@@ -654,7 +673,8 @@
         shadow: "SECRET AWAKENING UNLOCKED",
         naruto: "NINE-TAILS CHAKRA RELEASE",
         "black-clover": "ANTI-MAGIC: LIMIT BREAK",
-        bleach: "BANKAI: SPIRITUAL PRESSURE RELEASE"
+        bleach: "BANKAI: SPIRITUAL PRESSURE RELEASE",
+        tensura: "TENSURA: DEMON LORD AWAKENING"
       };
       let toastTimer, resetTimer;
       sigil.setAttribute("role", "button");
@@ -904,7 +924,8 @@
         shadow: {fill:"#ef1738", glow:"#ef1738"},
         naruto: {fill:"#ff8414", glow:"#ff7817"},
         "black-clover": {fill:"#f01836", glow:"#f01836"},
-        bleach: {fill:"#65c8ff", glow:"#65c8ff"}
+        bleach: {fill:"#65c8ff", glow:"#65c8ff"},
+        tensura: {fill:"#58e5d0", glow:"#58e5d0"}
       };
       let activeTheme = "";
       let lastDraw = 0;
